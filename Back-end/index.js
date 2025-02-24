@@ -5,12 +5,16 @@ const handleError = require('./middlewares/handleError')
 const app = express()
 
 //Routing
-const authController = require('./Routes/auth-routes')
+const authRouter = require('./Routes/auth-routes')
 
 //middlewares
 app.use(cors())
 app.use(morgan("dev"))
 app.use(express.json())
+
+//Routing
+app.use("/", authRouter)
+
 
 //Handle errors
 app.use(handleError)

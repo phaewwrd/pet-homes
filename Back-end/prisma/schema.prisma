@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id        Int    @id @default(autoincrement())
+  firstName String @map("first_name")
+  lastName  String @map("last_name")
+  email     String @unique
+  password  String
+  tel       String
+  role      Role   @default(USER)
+  Pet       Pet[]
+
+  @@map("user")
+}
+
+model Pet {
+  id             Int              @id @default(autoincrement())
+  name           String
+  chronicDisease String           @map("chronic_disease")
+  medicine       String
+  vaccined       String
+  age            String
+  breed          String
+  user           User             @relation(fields: [userId], references: [id])
+  userId         Int
+  VetAppointment VetAppointment[]
+
+  @@map("pet")
+}
+
+model VetAppointment {
+  id          Int        @id @default(autoincrement())
+  date        DateTime
+  pet         Pet        @relation(fields: [petId], references: [id])
+  petId       Int
+  vetClinic   VetClinic? @relation(fields: [vetClinicId], references: [id])
+  vetClinicId Int?
+
+  @@map("vet_appointment")
+}
+
+model VetClinic {
+  id             Int              @id @default(autoincrement())
+  name           String
+  location       String
+  tel            String
+  lat            String
+  long           String
+  VetAppointment VetAppointment[]
+
+  @@map("vet_clinic")
+}
