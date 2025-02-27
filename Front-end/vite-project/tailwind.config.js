@@ -13,20 +13,21 @@ export default {
       {
         petsHome: {
           "primary": "#115E59",        // Facebook Blue
-          "primary-focus": "#4338CA",  // Darker blue for hover/focus
+          "primary-focus": "#F0FDFA",  // Darker blue for hover/focus
           "primary-content": "#ffffff", // White text on primary
 
           "secondary": "#CCFBF1",      // Green (for action buttons like sign up)
           "secondary-focus": "#3B82F6", // Darker green for hover
-          "secondary-content": "#F0FDFA",
+          "secondary-content": "#0D9488",
 
           "accent": "#0D9488",         // Darker blue (used in links)
-          "accent-focus": "#314B81",
+          "accent-focus": "#31   4B81",
           "accent-content": "#ffffff",
 
           "neutral": "#637381",        // Gray (used for secondary text)
           "neutral-focus": "#1C1E21",  // Dark gray (used for primary text)
           "neutral-content": "#ffffff",
+
 
           "base-100": "#ffffff",       // White background
           "base-200": "#F0F2F5",       // Light gray background

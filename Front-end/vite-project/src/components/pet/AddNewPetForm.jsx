@@ -1,8 +1,11 @@
-import React from "react";
-import { PetHomeLogo } from "../../Icons";
-import { Link } from "react-router";
+import React from 'react'
+import FormInputPet from './FormInputPet'
+import { Link } from 'react-router';
+import { PetHomeLogo } from '../../Icons';
 
-function FormInputPet(props) {
+
+
+function AddNewPetForm(props) {
   const { pet } = props;
   return (
     <div>
@@ -89,7 +92,7 @@ function FormInputPet(props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default FormInputPet;
+export default AddNewPetForm

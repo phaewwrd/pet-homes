@@ -21,7 +21,7 @@ function FormInputProfile(props) {
            {/* form */}
            <div className="flex flex-col rounded-lg p-5 bg-base-100 border-2 border-slate-100 ">
              <div className="grid grid-cols-6 gap-5 border-b-2 pb-5 border-slate-200 place-items-center">
-               <div className="w-[150px]]">
+               <div className="w-[150px]">
                <div>First Name</div>
                </div>
                <div className="w-[150px]">
@@ -55,7 +55,7 @@ function FormInputProfile(props) {
                      {el.lastName}
                    </div>
                    {/* email */}
-                   <div key={index} className="text-accent w-[150px]">
+                   <div key={index} className="text-accent w-[150px] ">
                      {el.email}
                    </div>
                    {/* password */}

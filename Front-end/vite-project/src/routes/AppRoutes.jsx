@@ -11,26 +11,28 @@ import UserHome from "../pages/user/UserHome";
 import UserMakeappoinement from "../pages/user/UserMakeappoinement";
 import MyProfile from "../pages/user/MyProfile";
 import MyAppointment from "../pages/user/MyAppointment";
-
+import EditAppointment from "../pages/user/EditAppointment";
+import AddNewPet from "../components/pet/AddNewPetForm";
 
 function AppRoutes() {
   return (
     <>
       <Routes>
         {/* Public */}
-        <Route path='/' element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path='login' element={<Membership />} />
-          <Route path='register' element={<Register/>}/>
+          <Route path="login" element={<Membership />} />
+          <Route path="register" element={<Register />} />
         </Route>
 
-
         {/* Membership */}
-        <Route path='/member' element={<LayoutUser />}>
-          <Route index element={<UserHome/>} />
-          <Route path='myprofile' element={<MyProfile/>} />
-           <Route path='myappointment' element={<MyAppointment/>} />
-          <Route path='makeappointment' element={<UserMakeappoinement/>}/>
+        <Route path="/member" element={<LayoutUser />}>
+          <Route index element={<UserHome />} />
+          <Route path="myprofile" element={<MyProfile />} />
+          <Route path="myappointment" element={<MyAppointment />} />
+          <Route path="makeappointment" element={<UserMakeappoinement />} />
+          <Route path="editappointment" element={<EditAppointment />} />
+          <Route path="addnewpet" element={<AddNewPet/>} />
         </Route>
 
         {/* Pet */}

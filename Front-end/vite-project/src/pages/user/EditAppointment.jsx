@@ -1,8 +1,11 @@
 import React from 'react'
+import EditAppForm from '../../components/Appointment/EditAppForm'
 
 function EditAppointment() {
   return (
-    <div>EditAppointment</div>
+    <div>
+        <EditAppForm/>
+    </div>
   )
 }
 

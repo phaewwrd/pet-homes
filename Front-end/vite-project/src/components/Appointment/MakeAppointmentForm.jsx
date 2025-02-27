@@ -12,7 +12,7 @@ function MakeAppointmentForm() {
       <div className=" flex justify-center ">
         <div className="flex flex-col w-[1150px] justify-center ">
         <div className="bg-secondary-content w-full px-5 py-5 rounded-t-lg flex flex-col justify-center text-[16px]">
-          <label htmlFor="" className=" text-white text-2xl">
+          <label htmlFor="" className=" text-white text-2xl pl-10">
             Make appointment
           </label>
         </div>
