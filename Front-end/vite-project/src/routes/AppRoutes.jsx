@@ -12,7 +12,11 @@ import UserMakeappoinement from "../pages/user/UserMakeappoinement";
 import MyProfile from "../pages/user/MyProfile";
 import MyAppointment from "../pages/user/MyAppointment";
 import EditAppointment from "../pages/user/EditAppointment";
-import AddNewPet from "../components/pet/AddNewPetForm";
+import AddNewPet from "../pages/user/AddNewPet";
+import LayoutAdmin from "../layout/LayoutAdmin";
+import VetsMakeappointment from "../pages/user-vets/VetsMakeappointment";
+import ProtectRoutes from "../layout/ProtectRoutes";
+
 
 function AppRoutes() {
   return (
@@ -26,13 +30,13 @@ function AppRoutes() {
         </Route>
 
         {/* Membership */}
-        <Route path="/member" element={<LayoutUser />}>
+        <Route path="/member" element={<ProtectRoutes el={<LayoutUser />} allows={"USER"}/>}>
           <Route index element={<UserHome />} />
           <Route path="myprofile" element={<MyProfile />} />
           <Route path="myappointment" element={<MyAppointment />} />
           <Route path="makeappointment" element={<UserMakeappoinement />} />
           <Route path="editappointment" element={<EditAppointment />} />
-          <Route path="addnewpet" element={<AddNewPet/>} />
+          <Route path="addnewpet" element={<AddNewPet/>}/>
         </Route>
 
         {/* Pet */}
@@ -44,9 +48,11 @@ function AppRoutes() {
         </Route> */}
 
         {/* Vets Membership */}
-        {/* <Route element={<Layout/>}>
-          <Route element="{<Dashboard/>}" />
-        </Route> */}
+        <Route path="/admin" element={<ProtectRoutes el={<LayoutAdmin />} allows={"ADMIN"}/>}>
+          <Route index element={<Dashboard />}/>
+          <Route path="vetsmakeappointment" element={<VetsMakeappointment />} />
+
+        </Route>
         {/* admin */}
         {/* <Route>
           <Route element={"Dashboard"} />

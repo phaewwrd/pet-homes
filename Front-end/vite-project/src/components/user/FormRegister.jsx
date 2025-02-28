@@ -1,25 +1,34 @@
 import React from "react";
 import FormInput from "./FormInput";
 import { useForm } from "react-hook-form";
-import { Form } from "react-router";
+import { Form, useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "../../utils/validator";
+import { actionRegister } from "../../api/auth";
+import Buttons from "../Form/Buttons";
 
 function FormRegister() {
-  const { register, handleSubmit, formState, reset} = useForm({
-      resolver : zodResolver(registerSchema)
-    })
-    const { isSubmitting, errors} = formState
+  const navigate = useNavigate();
 
-    const hdlSubmit = async (value) =>{
-      try {
-        const res = await actionRegister(value)
-        reset()
-        toast.success("Register Successfully!!")
-      } catch (error) {
-        toast.error("Error")
-      }
+  const { register, handleSubmit, formState, reset } = useForm({
+    resolver: zodResolver(registerSchema),
+  });
+  // const { register, handleSubmit, formState, reset } = useForm();
+  const { isSubmitting, errors } = formState;
+  console.log(isSubmitting);
+  console.log(errors);
+
+  const hdlSubmit = async (value) => {
+    try {
+      const res = await actionRegister(value);
+      console.log(res);
+      reset();
+      navigate('/login');
+      // toast.success("Register Successfully!!", res.data.message);
+    } catch (error) {
+      // toast.error("Error");
     }
+  };
   return (
     <div className="w-full flex justify-center">
       <div className="mt-10 drop-shadow-lg">
@@ -28,19 +37,30 @@ function FormRegister() {
             Register Form
           </label>
         </div>
-        <form
-          action=""
-          onSubmit={handleSubmit(hdlSubmit)}
-          className="bg-white w-[449px] gap-5 p-5 rounded-b-lg pt-10 pb-10 flex flex-col justify-center place-items-center"
-        >
-          <FormInput register={register} name="firstName" errors={errors} />
-          <FormInput register={register} name="lastName" errors={errors} />
-          <FormInput register={register} name="tel" errors={errors} />
-          <FormInput register={register} name="email" errors={errors} />
-          <FormInput register={register} name="password" errors={errors}/>
-          <FormInput register={register} name="confirmPassword" errors={errors}/>
-          <div className="flex justify-end  w-full ">
-          <button className="btn btn-accent w-[150px]" isSubmitting={isSubmitting} label={register}/>
+        <form onSubmit={handleSubmit(hdlSubmit)}>
+          <div className="bg-white w-[449px] gap-5 p-5 rounded-b-lg pt-10 pb-10 flex flex-col justify-center place-items-center">
+            <FormInput register={register} name="firstName" errors={errors} />
+            <FormInput register={register} name="lastName" errors={errors} />
+            <FormInput register={register} name="tel" errors={errors} />
+            <FormInput register={register} name="email" errors={errors} />
+            <FormInput
+              register={register}
+              name="password"
+              errors={errors}
+              type="password"
+            />
+            <FormInput
+              register={register}
+              name="confirmPassword"
+              errors={errors}
+              type="password"
+            />
+          </div>
+          <div className="flex justify-end  w-full  mt-5">
+            <Buttons
+              className="btn btn-accent w-[150px]"
+              isSubmitting={isSubmitting}
+              label="Register"/>
           </div>
         </form>
       </div>

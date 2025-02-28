@@ -38,7 +38,7 @@ function MainNavUser() {
               </Link>
               {/* Logout */}
               <Link
-                to="logout"
+                to="/"
                 className="btn btn-secondary w-[125px] text-[14px] border-teal-600"
               >
                 Log out

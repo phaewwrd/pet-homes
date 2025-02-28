@@ -1,54 +1,56 @@
 import React from "react";
 import { PetHomeLogo } from "../../Icons";
 import { Link } from "react-router";
-import AddNewPet from "../../pages/user/AddNewPet";
-import { useState } from "react";
 
+const pet = [
+  {
+    name: "MeeChock",
+    breed: "Siamese Cat",
+    age: "12",
+    gender: "Male",
+    chronicDisease: "none",
+    medicine: "+66 879 2345",
+    vaccined: "none",
+  },
+];
 
-
-function FormInputPet(props) {
-  // const [isOpen, setIsOpen] = useState(false)
-  const { pet } = props;
+function AppointmentForm() {
   return (
     <div>
       <div className="flex flex-col justify-center mb-10">
         <div className=" flex justify-between place-items-center mb-10">
           <div className="flex flex-col justify-evenly w-[300px] ">
-            <div className="text-2xl font-semibold">My Pets</div>
-            <div>your pets</div>
+            <div className="text-2xl font-semibold">Appointment</div>
+            <div>your appointments</div>
           </div>
-
-          
         </div>
 
         {/* form */}
         <div className="flex flex-col rounded-lg  bg-base-100 pt-5 pb-5 border-2 border-slate-100 w-[1064px] p-5">
-          <div className="grid grid-cols-8  w-full border-b-2 pb-5 place-items-center "> 
+          <div className="grid grid-cols-8  w-full border-b-2 pb-5 place-items-center ">
             <div className="w-[100px] ">
-            <div>name</div>
+              <div>name</div>
             </div>
             <div className="w-[100px] ">
-            <div>breed</div>
+              <div>Owner</div>
             </div>
             <div className="w-[100px] ">
-            <div>age</div>
+              <div>Date</div>
             </div>
             <div className="w-[100px] ">
-            <div>gender</div>
+              <div>Time</div>
             </div>
             <div className="w-[100px] ">
-            <div>chronicDisease</div>
+              <div>Status</div>
             </div>
             <div className="w-[100px] ">
-            <div>medicine</div>
+              <div>Tel.</div>
             </div>
             <div className="w-[100px] ">
-            <div>vaccined</div>
-            </div>
-            <div className="w-[100px] ">
-            <div>edit</div>
+              <div>edit</div>
             </div>
           </div>
+          {/* Appointment info. */}
           <div className=" w-full pt-5">
             {pet?.map((el, index) => (
               <div className="grid grid-cols-8 place-items-center ">
@@ -60,31 +62,52 @@ function FormInputPet(props) {
                   </div>
                 </div>
                 {/* breed */}
-                <div key={index} className="text-accent w-[120px] text-center h-10 flex justify-center rounded-2xl place-items-center bg-teal-50">
+                <div
+                  key={index}
+                  className="text-accent w-[120px] text-center h-10 flex justify-center rounded-2xl place-items-center bg-teal-50"
+                >
                   {el.breed}
                 </div>
                 {/* age */}
-                <div key={index} className="text-accent w-[80px] text-cente h-10 flex justify-center rounded-2xl place-items-center bg-teal-50">
+                <div
+                  key={index}
+                  className="text-accent w-[80px] text-cente h-10 flex justify-center rounded-2xl place-items-center bg-teal-50"
+                >
                   {el.age}
                 </div>
                 {/* gender */}
-                <div key={index} className="text-accent w-[120px] text-center h-10 flex justify-center rounded-2xl place-items-center bg-teal-50">
+                <div
+                  key={index}
+                  className="text-accent w-[120px] text-center h-10 flex justify-center rounded-2xl place-items-center bg-teal-50"
+                >
                   {el.gender}
                 </div>
                 {/* choronicDisease */}
-                <div key={index} className="text-accent w-[120px] text-center h-10 flex justify-center rounded-2xl place-items-center bg-teal-50">
+                <div
+                  key={index}
+                  className="text-accent w-[120px] text-center h-10 flex justify-center rounded-2xl place-items-center bg-teal-50"
+                >
                   {el.chronicDisease}
                 </div>
                 {/* medicine */}
-                <div key={index} className="text-accent w-[120px] text-center h-10 flex justify-center rounded-2xl place-items-center bg-teal-50">
+                <div
+                  key={index}
+                  className="text-accent w-[120px] text-center h-10 flex justify-center rounded-2xl place-items-center bg-teal-50"
+                >
                   {el.medicine}
                 </div>
                 {/* vaccined */}
-                <div key={index} className="text-accent w-[120px] text-center h-10 flex justify-center rounded-2xl place-items-center bg-teal-50">
+                <div
+                  key={index}
+                  className="text-accent w-[120px] text-center h-10 flex justify-center rounded-2xl place-items-center bg-teal-50"
+                >
                   {el.vaccined}
                 </div>
                 {/* edit */}
-                <div key={index} className="btn btn-accent w-[100px] text-center ">
+                <div
+                  key={index}
+                  className="btn btn-accent w-[100px] text-center "
+                >
                   {index}
                 </div>
               </div>
@@ -93,9 +116,14 @@ function FormInputPet(props) {
             {/* ---------- */}
           </div>
         </div>
+        {/* Make appointment  Button*/}
         <div className="w-full flex justify-center mt-10">
-
-        {/* <button onClick={() => setIsOpen(true)} className="btn btn-accent w-[200px] h-[30px]">Add New Pets</button> */}
+          <Link
+            to="vetsmakeappointment"
+            className=" btn btn-primary w-[220px] text-[15px]"
+          >
+            Make appointment
+          </Link>
         </div>
 
         {/* {isOpen && <AddNewPet/>} */}
@@ -104,4 +132,4 @@ function FormInputPet(props) {
   );
 }
 
-export default FormInputPet;
+export default AppointmentForm;

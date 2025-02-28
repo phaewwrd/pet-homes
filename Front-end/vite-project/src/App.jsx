@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import AppRoutes from './routes/AppRoutes'
 import { BrowserRouter } from 'react-router'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -12,7 +13,7 @@ function App() {
      <BrowserRouter>
       <AppRoutes/>
      </BrowserRouter>
-       
+     <ToastContainer/>  
     </div>
     </div>
   )

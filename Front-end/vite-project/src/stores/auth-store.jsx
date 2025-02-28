@@ -9,11 +9,13 @@ const authStore = (set) =>({
     actionLoginWithZustand: async(value) =>{
         try {
             const res = await actionMembership(value)
-            const {} = res.data
-            set({user: payload, token: token})
+            const {payload, token} = res.data
+            set({user: payload,token: token})
             return { success: true, role: payload.role}
         } catch (error) {
-            return { success: false, error: error.response.data.message}
+            
+            console.log("catch",error);
+            return { success: false, message: error.response.data.message}
         }
     },
     actionLogout: () =>{

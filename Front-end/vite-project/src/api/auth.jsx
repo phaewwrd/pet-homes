@@ -8,7 +8,7 @@ export const actionMembership = async (value) =>{
 }
 export const actionMember = async (token) =>{
     console.log(token);
-    return await axios.get('http://localhost:8800/member', {
+    return await axios.get('http://localhost:8800/me', {
         headers:{
             Authorization: `Bearer ${token}`
         }

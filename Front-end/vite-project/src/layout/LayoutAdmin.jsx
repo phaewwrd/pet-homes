@@ -5,17 +5,17 @@ import Footer from "../components/Footer";
 import { actionMember } from "../api/auth";
 import useAuthStore from "../stores/auth-store";
 import { toast } from "react-toastify";
+import MainNavAdmin from "../components/MainNavVets";
 
-function LayoutUser() {
-  
-
+function LayoutAdmin() {
+ 
   return (
     <div className="w-full">
-      <MainNavUser />
+      <MainNavAdmin />
       <Outlet />
       <Footer />
     </div>
   );
 }
 
-export default LayoutUser;
+export default LayoutAdmin;

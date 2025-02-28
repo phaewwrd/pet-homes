@@ -8,8 +8,8 @@ function FormInput(props) {
       <div className='mt-2'>
         <input type={type} 
         placeholder={name}
-        // {...register(name)}
-        className='w-[350px] input input-bordered rounded-[5px] flex items-center gap-2'/>
+        {...register(name)}
+        className='w-[350px] input input-bordered rounded-2xl flex items-center gap-2'/>
         {/* {errors[name] && (<p className='text-rose-400'>{errors[name].message}</p>)} */}
         
       </div>

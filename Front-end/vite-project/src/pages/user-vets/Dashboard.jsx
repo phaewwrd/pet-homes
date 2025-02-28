@@ -1,8 +1,18 @@
 import React from 'react'
+import FormInputProfile from '../../components/user/FormInputProfile'
+import PetsHomeLogo from '../../components/Logo/PetsHomeLogo'
+import AppointmentForm from '../../components/User-Vets/AppointmentForm'
 
 function Dashboard() {
   return (
-    <div>Dashboard</div>
+    <div className="flex flex-col justify-center items-center bg-amber-50 pt-10 ">
+    <PetsHomeLogo className="" />
+    <div className="pt-10">
+      <FormInputProfile  />
+      <AppointmentForm  />
+      
+    </div>
+  </div>
   )
 }
 

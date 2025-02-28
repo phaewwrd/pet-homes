@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PetsHomeLogo from "../../components/Logo/PetsHomeLogo";
 import FormInputProfile from "../../components/user/FormInputProfile";
 import FormInputPet from "../../components/pet/FormInputPet";
@@ -26,12 +26,17 @@ const profile = [
 
 
 function MyProfile() {
+
+
+
+  
   return (
     <div className="flex flex-col justify-center items-center bg-amber-50 pt-10 ">
       <PetsHomeLogo className="" />
       <div className="pt-10">
         <FormInputProfile profile={profile} />
         <FormInputPet pet={pet} />
+        
       </div>
     </div>
   );

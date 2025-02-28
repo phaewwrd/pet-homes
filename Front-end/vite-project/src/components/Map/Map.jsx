@@ -9,6 +9,7 @@ function Map() {
   return (
     <div className="w-full  bg-amber-700 flex justify-center">
       <div className="bg-purple-200 flex justify-evenly gap-20 w-full mt-10 mb-10">
+        {/* Location info. */}
         <div className="bg-yellow-300 flex flex-col w-[300px] gap-10">
           location
           <div className="bg-slate-400">
@@ -28,9 +29,12 @@ function Map() {
           <div className=" flex justify-end">
             <VetsMapLogo className="w-[400px]" />
           </div>
+
+          {/* Map */}
           <div className="bg-red-500 w-[500px] h-[200px]">
-            oo
+            
           <MapImg/>
+
           </div>
         </div>
       </div>
