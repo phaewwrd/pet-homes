@@ -18,14 +18,15 @@ export const loginScheme = z.object({
   });
 
 export const registerVets = z.object({
-  name : z.string().min(3, "Name is required!!"),
-  nameOfVets: z.string(),
+  doctor_name : z.string().min(3, "Name is required!!"),
+  name: z.string(),
   email: z.string().email(),
   password: z.string().min(6, "Password must have at least 6 characters!!"),
   location: z.string(),
-  tel : z.string(),
-  lat: z.string(),
-  long: z.string(),
+  phone : z.string(),
+  address: z.string(),
+  province: z.string(),
+  type: z.string(),
   picture: z.string(),
   
 

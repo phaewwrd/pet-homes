@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import mainImg from "../assets/mainImg.png";
 import { Pawlogo, VetsLogo } from "../Icons";
+import { actionMaps } from "../api/auth";
 
 function SearchFilters() {
+  const [typeOfPets, setTypeOfPets] = useState([]);
+  const [provinces, setProvinces] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await actionMaps();
+        setTypeOfPets(res.data);
+        setProvinces(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  },[]);
+
   return (
     <div className="flex justify-center w-full  pt-[20px]">
       <div className="w-full flex justify-center h-[535px] ">
@@ -30,7 +47,6 @@ function SearchFilters() {
             <input
               type="text"
               placeholder="Search"
-              
               className="input input-bordered w-[294px] max-w-xs "
             />
             {/* --------------------------------------------- */}
@@ -40,13 +56,20 @@ function SearchFilters() {
               {/* type of Pets */}
               <div className="form-control w-[250px] max-w-xs ">
                 <label className="label" />
-                <select className="select select-bordered w-full max-w-xs bg-primary text-white "
-                >
+                <select className="select select-bordered w-full max-w-xs bg-primary text-white ">
                   <option selected disabled>
                     Type of Pets
                   </option>
-                  <option>Normal Pets</option>
-                  <option>Exotic Pets</option>
+                  {typeOfPets
+                    .filter(
+                      (pet, index, self) =>
+                        index === self.findIndex((p) => p.type === pet.type)
+                    )
+                    .map((res) => (
+                      <option key={res.id} value={res.id}>
+                        {res.type}
+                      </option>
+                    ))}
                 </select>
               </div>
               {/* --------------------------------------------- */}
@@ -58,6 +81,16 @@ function SearchFilters() {
                   <option selected disabled>
                     Province
                   </option>
+                  {provinces
+                    .filter(
+                      (province, index, self) =>
+                        index === self.findIndex((p) => p.province === province.province)
+                    )
+                    .map((res) => (
+                      <option key={res.id} value={res.id}>
+                        {res.province}
+                      </option>
+                    ))}
                 </select>
               </div>
 
@@ -78,11 +111,15 @@ function SearchFilters() {
           {/* --------------------------------------------- */}
         </div>
 
-        <img src={mainImg} alt="avatar" className="w-[795px] absolute top-[220px]" />
-      {/*  Paw Logo*/}
+        <img
+          src={mainImg}
+          alt="avatar"
+          className="w-[795px] absolute top-[220px]"
+        />
+        {/*  Paw Logo*/}
         <Pawlogo className="w-[80px] absolute top-[70px] text-secondary " />
 
-      {/* --------------------------------------------- */}
+        {/* --------------------------------------------- */}
       </div>
       {/* --------------------------------------------- */}
     </div>
