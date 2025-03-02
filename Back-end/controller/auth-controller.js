@@ -52,9 +52,9 @@ exports.login = async( req, res, next) =>{
 
         const payload = {
             id : profile.id,
-            // email : profile.email,
-            // firstName: profile.firstName,
-            // lastName : profile.lastName,
+            email : profile.email,
+            firstName: profile.firstName,
+            lastName : profile.lastName,
             role: profile.role
         }
         const token = jwt.sign(payload, process.env.SECRET_KEY,{
@@ -68,5 +68,21 @@ exports.login = async( req, res, next) =>{
 }
 
 exports.getMe = async( req, res, next) =>{
-    res.json('Get me success!');
+    try {
+        const {id} = req.user
+        const profile = await prisma.user.findFirst({
+            where:{
+                id,
+            },
+            select:{
+                id: true,
+                email: true,
+                role: true
+            }
+        })
+
+        res.json({result: profile});
+    } catch (error) {
+        next(error)
+    }
 }

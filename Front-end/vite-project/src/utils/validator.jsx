@@ -31,3 +31,14 @@ export const registerVets = z.object({
   
 
 })
+export const registerPet = z.object({
+  name: z.string(),
+  breed: z.string(),
+  age: z.string(),
+  chronicDisease : z.string(),
+  medicine: z.string(),
+  vaccined: z.string(),
+  type: z.string(),
+
+})
+

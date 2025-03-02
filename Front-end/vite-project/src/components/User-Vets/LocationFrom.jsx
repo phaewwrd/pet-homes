@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import VetsMapLogo from "../Logo/VetsMapLogo";
+import {MapContainer, TileLayer, Popup, Marker, useMap} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import useSearchStore from "../../stores/search-store";
+import useLocationStore from "../../stores/location-store";
 
-const lat = "13.7563";
-const long = "110.9918";
-
-function LocationFrom(props) {
-  const { location } = props;
+function LocationFrom() {
+  const { location } = useLocationStore();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState(null);
   const itemsPerPage = 4;
 
+  // const  resLocation  = useLocationStore(state => state.location);
+  // console.log(resLocation);
+  
   //Calcutate
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -26,8 +29,12 @@ function LocationFrom(props) {
     setSearchTerm(location);
   };
 
+  useEffect(() => {
+    console.log("LocationFrom received location data:", location);
+  }, [location]);
+
   return (
-    <div className="flex gap-10">
+    <div className="flex gap-10 w-full justify-center bg-accent p-10">
       <div className="bg-base-100 p-10 rounded-xl flex flex-col w-[500px] gap-10">
         {/* location 1 */}
         {currentItems?.map((item, index) => (
@@ -66,8 +73,9 @@ function LocationFrom(props) {
         </div>
       </div>
       {/* Map */}
-      <div className="flex flex-col gap-10 ">
+      <div className="flex flex-col gap-10  ">
         <VetsMapLogo />
+        <div className="flex w-[700px] h-[200px] justify-center">
         <MapContainer
           className=" w-[700px] h-[500px]"
           center={
@@ -75,8 +83,7 @@ function LocationFrom(props) {
               ? searchTerm.location
                   .split(",")
                   .map((coord) => Number(coord.trim()))
-              : 
-            [13.7384, 100.5321]
+              : [13.7384, 100.5321]
           }
           zoom={13}
           scrollWheelZoom={false}
@@ -86,17 +93,20 @@ function LocationFrom(props) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker
-            position={searchTerm
-                            ? searchTerm.location
-                                .split(",")
-                                .map((coord) => Number(coord.trim()))
-                            : 
-               [13.7384, 100.5321]
+            position={
+              searchTerm
+                ? searchTerm.location
+                    .split(",")
+                    .map((coord) => Number(coord.trim()))
+                : [13.7384, 100.5321]
             }
           >
-            
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
           </Marker>
         </MapContainer>
+        </div>
       </div>
     </div>
   );
@@ -108,5 +118,4 @@ export default LocationFrom;
 //               ? searchTerm.location
 //                   .split(",")
 //                   .map((coord) => parseFloat(coord.trim()))
-//               : 
-
+//               :

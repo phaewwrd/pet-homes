@@ -15,11 +15,7 @@ export const actionMember = async (token) =>{
     })
 }
 
-// Maps location
-export const actionMaps = async () =>{
-    const res = await axios.get('http://localhost:8800/maps/getallvets', )
-    return res
-}
+
 
 
 

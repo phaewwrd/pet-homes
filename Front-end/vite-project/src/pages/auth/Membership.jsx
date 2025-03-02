@@ -3,7 +3,7 @@ import MainNav from '../../components/MainNav'
 import PetsHomeLogo from '../../components/Logo/PetsHomeLogo'
 import FormRegister from '../../components/user/FormRegister'
 import FormLogin from '../../components/user/FormLogin'
-import  useAuthStore  from '../../stores/auth-store'
+import useAuthStore from '../../stores/auth-store'
 
 import { useNavigate } from 'react-router'
 import FormInput from '../../components/user/FormInput'

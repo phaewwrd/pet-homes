@@ -4,11 +4,11 @@ import { Pawlogo, VetsLogo } from "../Icons";
 import { actionMaps, actionSearchVets } from "../api/vets";
 import useSearchStore from "../stores/search-store";
 import LocationFrom from "./User-Vets/LocationFrom";
-import useLocationStore from "../stores/location-store";
 
 function SearchFilters() {
   const [typeOfPets, setTypeOfPets] = useState([]);
   const [provinces, setProvinces] = useState([]);
+  const [location, setLocation] = useState();
 
   const {
     searchQuery,
@@ -19,17 +19,16 @@ function SearchFilters() {
     setSelectedProvince,
   } = useSearchStore();
 
-  const {location, setLocation} = useLocationStore();
+
 
   useEffect(() => {
    const fetchData = async () => {
       try {
         const res = await actionMaps();
         if (res && res.data) {
-          setProvinces(res.data)
-          setTypeOfPets(res.data)
+          setTypeOfPets(res.data);
+          setProvinces(res.data);
           setLocation(res.data);
-          console.log(location);
         }
       } catch (error) {
         console.log("error", error);
@@ -38,18 +37,16 @@ function SearchFilters() {
     fetchData();
   }, []);
 
-
   const hdlSearchBtn = async () => {
-    // Call API to search vet
+    console.log("Search params:", {searchQuery, selectedPetType, selectedProvince});
+    // Call API to search vets
     try {
-      const fetchDataSearch = await actionSearchVets({
-        searchQuery,
-        selectedPetType,
-        selectedProvince,
-      });
-      console.log("ddd",fetchDataSearch);
-      setLocation(fetchDataSearch.data);
-      console.log("Search params:", {searchQuery, selectedPetType, selectedProvince});
+      if (fetchDataSearch && fetchDataSearch.data) {
+        setLocation(fetchDataSearch.data);
+      } else {
+        console.log("No data returned from API");
+        setLocation([]); // เคลียร์ค่าถ้าไม่มีข้อมูล
+      }
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +95,7 @@ function SearchFilters() {
                 <select
                   value={selectedPetType}
                   className="select select-bordered w-full max-w-xs bg-primary text-white "
-                  onChange={(e) => setSelectedPetType(String(e.target.value))}
+                  onChange={(e) => setSelectedPetType(e.target.value)}
                 >
                   <option value="" disabled>
                     Type of Pets
@@ -106,7 +103,7 @@ function SearchFilters() {
                   {typeOfPets
                     .filter(
                       (pet, index, self) =>
-                        index === self.findIndex((p) => String(p.type) === String(pet.type))
+                        index === self.findIndex((p) => p.type === pet.type)
                     )
                     .map((res) => (
                       <option key={res.id} value={res.type}>
@@ -132,7 +129,7 @@ function SearchFilters() {
                     .filter(
                       (province, index, self) =>
                         index ===
-                        self.findIndex((p) => String( p.province) === String(province.province))
+                        self.findIndex((p) => p.province === province.province)
                     )
                     .map((res) => (
                       <option key={res.id} value={res.province}>
@@ -173,7 +170,7 @@ function SearchFilters() {
         {/* --------------------------------------------- */}
       </div>
       {/* --------------------------------------------- */}
-      <LocationFrom />
+      <LocationFrom location={location} />
     </div>
   );
 }

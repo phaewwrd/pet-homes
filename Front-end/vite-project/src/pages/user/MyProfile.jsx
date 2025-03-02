@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PetsHomeLogo from "../../components/Logo/PetsHomeLogo";
 import FormInputProfile from "../../components/user/FormInputProfile";
 import FormInputPet from "../../components/pet/FormInputPet";
+import AddNewPet from "./AddNewPet";
 
 const pet = [
   {
@@ -36,7 +37,8 @@ function MyProfile() {
       <div className="pt-10">
         <FormInputProfile profile={profile} />
         <FormInputPet pet={pet} />
-        
+        <AddNewPet />
+
       </div>
     </div>
   );

@@ -27,3 +27,4 @@ const authStore = (set) =>({
 const useAuthStore = create(persist(authStore, {name: 'auth-store'}))
 
 export default useAuthStore;
+

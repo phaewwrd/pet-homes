@@ -31,14 +31,24 @@ model User {
   @@map("user")
 }
 
+enum type {
+  NORMAL
+  EXOTIC
+}
+enum gender {
+  MALE
+  FEMALE
+}
 model Pet {
   id             Int              @id @default(autoincrement())
   name           String
-  chronicDisease String           @map("chronic_disease")
-  medicine       String
-  vaccined       String
+  chronicDisease String?          @map("chronic_disease")
+  medicine       String?
+  vaccined       String?
   age            String
   breed          String
+  type           type             @default(NORMAL)
+  gender         gender           @default(MALE)
   user           User             @relation(fields: [userId], references: [id])
   userId         Int
   VetAppointment VetAppointment[]
@@ -59,11 +69,16 @@ model VetAppointment {
 
 model VetClinic {
   id             Int              @id @default(autoincrement())
-  name           String
+  doctor_name    String
+  name           String           @map("name")
+  email          String           @unique
+  password       String
   location       String
-  tel            String
-  lat            String
-  long           String
+  address        String
+  phone          String
+  picture        String?
+  province       String
+  type           String
   VetAppointment VetAppointment[]
 
   @@map("vet_clinic")
