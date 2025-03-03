@@ -5,12 +5,17 @@ import {MapContainer, TileLayer, Popup, Marker, useMap} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import useSearchStore from "../../stores/search-store";
 import useLocationStore from "../../stores/location-store";
+import { actionMaps } from "../../api/vets";
+import useTypeStore from "../../stores/type-store";
+import useProvincetStore from "../../stores/province-store";
 
 function LocationFrom() {
-  const { location } = useLocationStore();
+
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState(null);
   const itemsPerPage = 4;
+  const {location, setLocation} = useLocationStore();
+
 
   // const  resLocation  = useLocationStore(state => state.location);
   // console.log(resLocation);
@@ -21,6 +26,9 @@ function LocationFrom() {
   const currentItems = location?.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(location?.length / itemsPerPage);
 
+  const {type, setType} = useTypeStore();
+  const { province, setProvince } = useProvincetStore();
+
   const hdlPagesChange = (page) => {
     setCurrentPage(page);
   };
@@ -29,14 +37,31 @@ function LocationFrom() {
     setSearchTerm(location);
   };
 
+  // fetch all vets data from api
   useEffect(() => {
-    console.log("LocationFrom received location data:", location);
-  }, [location]);
+ const fetchData = async () => {
+      try {
+        const res = await actionMaps();
+        if (res && res.data) {
+          setType(res.data);
+          setProvince(res.data);
+          setLocation(res.data);
+        }
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData()
+  }, []);
+  
 
   return (
-    <div className="flex gap-10 w-full justify-center bg-accent p-10">
+    
+    <div className="flex gap-10 w-full justify-center bg-accent p-10 h-[900px]">
       <div className="bg-base-100 p-10 rounded-xl flex flex-col w-[500px] gap-10">
         {/* location 1 */}
+        
         {currentItems?.map((item, index) => (
           <div key={index} className="flex flex-col gap-2">
             <div className="text-accent border-b-[0.5px] border-accent pb-5">

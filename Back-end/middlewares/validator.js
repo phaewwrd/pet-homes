@@ -36,10 +36,11 @@ exports.registerPet = z.object({
   name: z.string(),
   breed: z.string(),
   age: z.string(),
-  chronicDisease : z.string(),
-  medicine: z.string(),
-  vaccined: z.string(),
-  type: z.string(),
+  chronicDisease : z.string().optional(),
+  medicine: z.string().optional(),
+  vaccined: z.string().optional(),
+  gender: z.enum(["MALE", "FEMALE"]),
+  type: z.enum(["NORMAL", "EXOTIC"]),
 
 })
 

@@ -7,7 +7,8 @@ export const actionMaps = async () =>{
 }
 
 export const actionSearchVets = async (value) =>{
-    const res = await axios.get('http://localhost:8800/maps/searchvets', {
+    console.log(value);
+    const res = await axios.get(`http://localhost:8800/maps/searchvets?type=${value.selectedPetType}&province=${value.selectedProvince}&searchQuery=${value.searchQuery}`, {
         params: value})
     return res
 }

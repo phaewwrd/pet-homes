@@ -3,6 +3,7 @@ import PetsHomeLogo from "../../components/Logo/PetsHomeLogo";
 import FormInputProfile from "../../components/user/FormInputProfile";
 import FormInputPet from "../../components/pet/FormInputPet";
 import AddNewPet from "./AddNewPet";
+import FormPet from "../../components/pet/FormPet";
 
 const pet = [
   {
@@ -35,8 +36,8 @@ function MyProfile() {
     <div className="flex flex-col justify-center items-center bg-amber-50 pt-10 ">
       <PetsHomeLogo className="" />
       <div className="pt-10">
-        <FormInputProfile profile={profile} />
-        <FormInputPet pet={pet} />
+        <FormInputProfile />
+        <FormPet />
         <AddNewPet />
 
       </div>

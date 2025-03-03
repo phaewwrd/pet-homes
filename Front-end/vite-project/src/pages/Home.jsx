@@ -9,10 +9,9 @@ function Home() {
   
 
   return (
-    <div className="w-full bg-amber-50 pt-10 pb-10">
+    <div className="w-full bg-amber-50 pt-10 pb-10 h-full">
       <SearchFilters />
-      <div className="w-full justify-center flex gap-20  p-20">
-      </div>
+      <LocationFrom />
       <PetsHomeInfo />
     </div>
   );

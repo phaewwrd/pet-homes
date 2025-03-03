@@ -3,6 +3,7 @@ const { vetClinic } = require("../configs/prisma")
 exports.getVetsInfo = async (req, res, next) => {
     try {
         const vetClinicInfo = await vetClinic.findMany({
+
             select: {
                 id: true,
                 name: true,

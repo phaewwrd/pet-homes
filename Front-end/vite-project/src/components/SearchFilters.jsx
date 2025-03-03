@@ -5,10 +5,11 @@ import { actionMaps, actionSearchVets } from "../api/vets";
 import useSearchStore from "../stores/search-store";
 import LocationFrom from "./User-Vets/LocationFrom";
 import useLocationStore from "../stores/location-store";
+import useTypeStore from "../stores/type-store";
+import useProvincetStore from "../stores/province-store";
 
 function SearchFilters() {
-  const [typeOfPets, setTypeOfPets] = useState([]);
-  const [provinces, setProvinces] = useState([]);
+
 
   const {
     searchQuery,
@@ -20,23 +21,11 @@ function SearchFilters() {
   } = useSearchStore();
 
   const {location, setLocation} = useLocationStore();
+  const type = useTypeStore((state) => state.type);
+  const province = useProvincetStore((state) => state.province)
 
-  useEffect(() => {
-   const fetchData = async () => {
-      try {
-        const res = await actionMaps();
-        if (res && res.data) {
-          setProvinces(res.data)
-          setTypeOfPets(res.data)
-          setLocation(res.data);
-          console.log(location);
-        }
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-    fetchData();
-  }, []);
+// console.log(type.data);
+
 
 
   const hdlSearchBtn = async () => {
@@ -53,13 +42,13 @@ function SearchFilters() {
     } catch (error) {
       console.log(error);
     }
-   
     
   };
+  console.log(location);
   
 
   return (
-    <div className="flex flex-col justify-center w-full  pt-[20px]">
+    <div className="flex flex-col justify-center w-full pt-[20px]">
       <div className="w-full flex justify-center h-[535px] ">
         <div className="text-secondary-content  text-5xl ">
           {/* Title */}
@@ -103,7 +92,7 @@ function SearchFilters() {
                   <option value="" disabled>
                     Type of Pets
                   </option>
-                  {typeOfPets
+                  {type
                     .filter(
                       (pet, index, self) =>
                         index === self.findIndex((p) => String(p.type) === String(pet.type))
@@ -128,7 +117,7 @@ function SearchFilters() {
                   <option value="" disabled>
                     Province
                   </option>
-                  {provinces
+                  {province
                     .filter(
                       (province, index, self) =>
                         index ===
@@ -173,7 +162,6 @@ function SearchFilters() {
         {/* --------------------------------------------- */}
       </div>
       {/* --------------------------------------------- */}
-      <LocationFrom />
     </div>
   );
 }

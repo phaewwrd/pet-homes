@@ -10,7 +10,8 @@ const { authCheck } = require('../middlewares/auth-middlewares')
 const { validateWithZod, registerPet } = require('../middlewares/validator')
 
 
-router.post("/add", validateWithZod(registerPet), petController.add)
+router.post("/add", validateWithZod(registerPet),authCheck, petController.add)
+router.get("/get", authCheck, petController.get)
 router.patch("/update", authCheck, petController.update)
 router.delete("/delete", authCheck ,petController.delete)
 
