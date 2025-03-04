@@ -47,29 +47,7 @@ try {
 }
 }
 
-exports.info = async(req,res,next)=>{
-    try {
-        const {id} = req.user
-        const profile = await prisma.user.findFirst({
-            where:{
-                id : req.user.id
-            },
-            select:{
-                id: true,
-                email: true,
-                firstName: true,
-                lastName: true,
-                tel: true,
 
-            }
-        })
-
-        res.json({result : profile})
-        console.log('result', profile)
-    } catch (error) {
-        next(error)
-    }
-}
 
 
 

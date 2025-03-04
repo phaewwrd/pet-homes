@@ -17,6 +17,7 @@ exports.add = async (req, res, next) => {
       gender,
       breed,
     } = req.body;
+
     const  userId  = req.user || {}; 
 console.log(userId.id, "sssssssssssssssss");
 
@@ -74,6 +75,7 @@ exports.get = async( req, res, next) =>{
                 userId: userId.id,
             },
             select:{
+                id: true,
                 name: true,
                 chronicDisease: true,
                 medicine: true,
@@ -94,8 +96,10 @@ exports.get = async( req, res, next) =>{
 
 exports.update = async (req, res, next) => {
   try {
+    const petId = req.params;
+    console.log(petId, "petId");
+
     const {
-      id,
       name,
       chronicDisease,
       medicine,
@@ -105,12 +109,20 @@ exports.update = async (req, res, next) => {
       type,
       gender,
     } = req.body;
-console.log('req.body', req.body)
-const userId = req.user;
+  
+
+    const pet = await prisma.pet.findFirst({
+      where: {
+        id: +petId.id,
+      },
+    });
+    if(!pet){
+      return res.status(404).json({ error: "Pet not found" });
+    }
+
     const updated = await prisma.pet.update({
       where: {
-        userId : req.user.id,
-        petId: id
+        id: +petId.id
     },
       data: {
         name: name,
@@ -131,14 +143,13 @@ const userId = req.user;
 
 exports.delete = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const  {id}  = req.params;
+    console.log(id);
     const deleted = await prisma.pet.delete({
       where: {
-        id: Number(id),
+        id: +id,
       },
     });
-
-    console.log(id);
     res.json({ message: " Delete Pet Successfully" });
   } catch (error) {
     next(error);

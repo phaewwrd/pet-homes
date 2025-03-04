@@ -28,11 +28,21 @@ export const actionGetPet = async (token) =>{
     })
 }
 
-export const actionUpdatePet = async(token,value) =>{
-    console.log(token);
-    return await axios.patch('http://localhost:8800/pet/update',value, {
+export const actionUpdatePet = async(id,value,token) =>{
+    console.log("token",token);
+    console.log("value",value);
+    return await axios.patch(`http://localhost:8800/pet/update/${id}`,value, {
         headers: {
             Authorization: `Bearer ${token}`
         }
     })
 }
+
+
+export const actionDeletePet = async (id, token) => {
+    return await axios.delete(`http://localhost:8800/pet/delete/${id}`, {
+       headers: {
+          Authorization: `Bearer ${token}`
+       }
+    })
+ }

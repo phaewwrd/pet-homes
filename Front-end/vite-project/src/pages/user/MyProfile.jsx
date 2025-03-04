@@ -38,7 +38,6 @@ function MyProfile() {
       <div className="pt-10">
         <FormInputProfile />
         <FormPet />
-        <AddNewPet />
 
       </div>
     </div>

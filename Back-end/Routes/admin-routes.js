@@ -12,7 +12,6 @@ const { validateWithZod, loginScheme, registerVets } = require('../middlewares/v
 const { authCheck } = require('../middlewares/auth-middlewares')
 
 router.post("/login", validateWithZod(loginScheme), adminController.login)
-router.get("/info",  authCheck,adminController.info)
 router.delete("/delete", authCheck, adminController.delete)
 
 module.exports = router

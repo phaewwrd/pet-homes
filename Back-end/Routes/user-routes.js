@@ -8,8 +8,8 @@ const userController = require('../controller/user-controller')
 //middlewares
 const { authCheck } = require('../middlewares/auth-middlewares')
 
-
-router.patch('/update', authCheck ,userController.updateUser)
+router.get("/info",  authCheck,userController.info)
+router.patch('/update/:id', authCheck ,userController.updateUser)
 router.delete('/:id', authCheck ,userController.deleteUser)
 
 module.exports = router

@@ -1,30 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { PetHomeLogo, VetsLogo } from "../../Icons";
-import PetsHomeInfo from "../Logo/PetsHomeInfo";
-import PetsHomeLogo from "../Logo/PetsHomeLogo";
-import { use } from "react";
-import axios from "axios";
-import { actionAdminInfo } from "../../api/admin";
+
 import useAuthStore from "../../stores/auth-store";
-import { actionGetPet } from "../../api/pet";
+import {actionGetPet} from "../../api/pet";
 import usePetStore from "../../stores/pet-store";
+import AddNewPet from "../../pages/user/AddNewPet";
+import AllFormUpdatepet from "./AllFormUpdatepet";
 
 function FormPet() {
-  const {pet, setPet} = usePetStore();
-  const res = useAuthStore((state) => state.token);
-  console.log(res);
+  const { pet, setPet } = usePetStore();
+  const [isOpen, setIsOpen] = useState(null);
+
+  const token = useAuthStore((state) => state.token);
+  console.log(token);
+
+  
+  const checkPetId = (index) => {
+    setIsOpen((prev) => (prev === index ? null : index));
+  };
+
+  const fetchData = async () => {
+    try {
+      const petData = await actionGetPet(token);
+      setPet(petData.data.result);
+    } catch (error) {
+      console.error("Error fetching admin data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userData = await actionGetPet(res);
-        setPet(userData.data.result);
-      } catch (error) {
-        console.error("Error fetching admin data:", error);
-      }
-    };
     fetchData();
-  }, [res]);
+  }, []);
 
   console.log(pet);
 
@@ -68,60 +73,13 @@ function FormPet() {
               <div>vaccined</div>
             </div>
           </div>
-              { pet.map((pet)=> 
-          <div className="pl-5 pr-5 w-full  border-b-2 border-slate-100">
-            <div className="grid grid-cols-8 gap-10 pt-5 place-items-center">
-              {/* name */}
-              <div className="w-[150px] flex items-center gap-2">
-                <PetHomeLogo className="text-accent w-[40px] h-[40px] " />
-                <div className="text-accent">{pet?.name}</div>
-              </div>
-              {/* breed */}
-              <div className="text-accent w-[100px]">
-                {pet?.breed}
-              </div>
-               {/* type */}
-               <div className="text-accent w-[100px]">
-                {pet?.type}
-              </div>
-              {/* age/months */}
-              <div className="text-accent w-[100px] ">
-                {pet?.age}
-              </div>
-              {/* gender */}
-              <div className="text-accent w-[100px]">
-                {pet?.gender}
-              </div>
-                {/* chronicDisease */}  
-              <div className="text-accent w-[100px]">
-                {pet?.chronicDisease ? "pet?.chronicDisease" : "-"}
-              </div>
-                {/* medicine */}  
-              <div className="text-accent w-[100px]">
-                {pet?.medicine ? "pet?.medicine" : "-"}
-              </div>
-                {/* vaccined */}  
-              <div className="text-accent w-[100px]">
-                {pet?.vaccined ? "pet?.vaccined" : "-"}
-              </div>
-              
-            </div>
-            
-
-            {/* ---------- */}
-              {/* edit */}
-              <div className="w-full flex justify-end pt-3 pb-5">
-                <div
-                  key={pet?.id}
-                  className="btn btn-accent w-[100px]"
-                >
-                  Edit
-                </div>
-              </div>
-          </div>
-              )}
+          {/* pet info. */}
+          {pet.map((el, index) => (
+           <AllFormUpdatepet pet={el} isOpen={isOpen} setIsOpen={setIsOpen} checkPetId={checkPetId} index={index} fetchData={fetchData}/>
+          ))}
         </div>
       </div>
+      <AddNewPet  fetchData={fetchData} />
     </div>
   );
 }

@@ -13,7 +13,7 @@ import useAuthStore from "../../stores/auth-store";
 
 
 
-function AddNewPet() {
+function AddNewPet({fetchData}) {
   const [isOpen, setIsOpen] = useState(false);
   const { register, handleSubmit, formState, reset } = useForm({
     resolver: zodResolver(registerPet),
@@ -35,6 +35,7 @@ function AddNewPet() {
       console.log(res);
       reset();
       setIsOpen(false);
+      fetchData();
     } catch (error) {
       console.log(error);
     }
@@ -115,6 +116,7 @@ function AddNewPet() {
               label="Add Pet"
             />
           </div>
+          
         </form>
       )}
 

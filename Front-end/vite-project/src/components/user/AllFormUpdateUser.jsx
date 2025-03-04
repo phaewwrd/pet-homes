@@ -1,0 +1,135 @@
+import React, { useState } from "react";
+import { PetHomeLogo } from "../../Icons";
+import FormUpdateUser from "./FormUpdateUser";
+import useUserInfoStore from "../../stores/user-store";
+import { actionUpdateUser } from "../../api/user";
+import useAuthStore from "../../stores/auth-store";
+
+export default function AllFormUpdateUser({
+    userInfo,
+  isOpen,
+  setIsOpen,
+  checkUserId,
+  fetchData,
+}) {
+  const [editData, setEditData] = useState(userInfo);
+  
+  const token = useAuthStore((state) => state.token);
+  
+  const handleUpdateUser = async () => {
+      try {
+          const result = await actionUpdateUser(userInfo.id, editData, token);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsOpen(false);
+        }
+        
+        fetchData();
+    };
+    
+    console.log('tokennn',token);
+    console.log('testtpor',userInfo);
+  console.log("editdataUser", editData);
+  return (
+    <div className="  ">
+      <div className="flex flex-col  w-full  rounded-lg bg-base-100  p-5">
+        <div className="grid grid-cols-5 gap-10 pt-5 place-items-center ">
+          {/* firstName */}
+          <div className="w-[150px] flex items-center gap-2">
+            <PetHomeLogo className="text-accent w-[40px] h-[40px] " />
+            <div className="text-accent">{userInfo?.firstName}</div>
+          </div>
+          {/* lastName */}
+          <div className="text-accent w-[150px]">{userInfo?.lastName}</div>
+          {/* email */}
+          <div className="text-accent w-[150px] ">{userInfo?.email}</div>
+
+          {/* tel */}
+          <div className="text-accent w-[150px]">{userInfo?.tel}</div>
+          {/* edit */}
+          <div className="w-[150px]">
+            <button
+              key={userInfo?.result}
+              className="btn btn-accent w-[100px]"
+              onClick={() => checkUserId(userInfo?.id)}
+            >
+              Edit
+            </button>
+          </div>
+
+          {/* ---------- */}
+        </div>
+      </div>
+      {/* FormUpdateUser */}
+      {isOpen && (
+        <div className=" items-center w-full flex-col flex   ">
+          {/* edit form */}
+          <div className=" w-[full] p-5 grid grid-cols-4 gap-10">
+            <div className=" flex ">
+              <FormUpdateUser
+                name="firstName"
+                value={editData?.firstName}
+                setEditData={setEditData}
+                editData={editData}
+              />
+            </div>
+            <div className=" flex ">
+              <FormUpdateUser
+                name="lastName"
+                value={editData?.lastName}
+                setEditData={setEditData}
+                editData={editData}
+              />
+            </div>
+            <div className=" flex ">
+              <FormUpdateUser
+                name="email"
+                value={editData?.email}
+                setEditData={setEditData}
+                editData={editData}
+              />
+            </div>
+           
+            <div className=" flex ">
+              <FormUpdateUser
+                name="tel"
+                value={editData?.tel}
+                setEditData={setEditData}
+                editData={editData}
+              />
+            </div>
+          </div>
+          {/* Button */}
+          <div className="flex justify-end gap-2 mt-10 pb-5  w-full">
+            {/* delete */}
+            <button
+              type="button"
+              onClick={() => DeletePopUp(pet?.id)}
+              className="btn btn-ghost"
+            >
+              delete
+            </button>
+            {/* cancle */}
+            <button
+              type="button"
+              onClick={() => setIsOpen(null)}
+              className="btn btn-ghost"
+            >
+              cancel
+            </button>
+            {/* Confirm */}
+            <button
+              onClick={() => handleUpdateUser(userInfo?.id)}
+              type="button"
+              className="btn btn-primary w-[150px]"
+              label="Confirm"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

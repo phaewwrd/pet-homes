@@ -2,12 +2,41 @@
 // Delete user
 const prisma = require('../configs/prisma')
 
+exports.info = async(req,res,next)=>{
+    try {
+        const {id} = req.user
+        const profile = await prisma.user.findFirst({
+            where:{
+                id : req.user.id
+            },
+            select:{
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+                tel: true,
+                password: true,
+
+            }
+        })
+
+        res.json({result : profile})
+        console.log('result', profile)
+    } catch (error) {
+        next(error)
+    }
+}
 
 exports.updateUser = async(req,res,next) =>{
     try {
-        const {id, firstName, lastName, tel, email, password} = req.user
+        const {id} = req.params
+        const { firstName, lastName, tel, email} = req.user
         
-        const hashedPassword = bcrypt.hashSync(password, 10)
+        const userId = await prisma.user.findFirst({
+            where:{
+                id: Number(id)
+            }
+        })
 
         const updated = await prisma.user.update({
             where:{
@@ -18,11 +47,10 @@ exports.updateUser = async(req,res,next) =>{
                 lastName: lastName,
                 tel: tel,
                 email: email,
-                password: hashedPassword
             }
         })
 
-        res.json({message: 'Update Role Success!!'})
+        res.json({result : updated})
     } catch (error) {
         next(error)
     }

@@ -12,7 +12,7 @@ const { validateWithZod, registerPet } = require('../middlewares/validator')
 
 router.post("/add", validateWithZod(registerPet),authCheck, petController.add)
 router.get("/get", authCheck, petController.get)
-router.patch("/update", authCheck, petController.update)
-router.delete("/delete", authCheck ,petController.delete)
+router.patch("/update/:id", authCheck, petController.update)
+router.delete("/delete/:id", authCheck ,petController.delete)
 
 module.exports = router

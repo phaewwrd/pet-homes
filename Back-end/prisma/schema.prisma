@@ -41,14 +41,14 @@ enum gender {
 }
 model Pet {
   id             Int              @id @default(autoincrement())
-  name           String
+  name           String?
   chronicDisease String?          @map("chronic_disease")
   medicine       String?
   vaccined       String?
-  age            String
-  breed          String
-  type           type             @default(NORMAL)
-  gender         gender           @default(MALE)
+  age            String?
+  breed          String?
+  type           type?             @default(NORMAL)
+  gender         gender?           @default(MALE)
   user           User             @relation(fields: [userId], references: [id])
   userId         Int
   VetAppointment VetAppointment[]
