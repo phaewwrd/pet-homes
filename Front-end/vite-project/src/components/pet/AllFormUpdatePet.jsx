@@ -57,7 +57,7 @@ export default function AllFormUpdatepet({
     //     setIsOpen(false);
     //   }
   
-      fetchData();
+      fetchPetData();
   }
 
   return (

@@ -13,6 +13,8 @@ const appointmentController = require('../controller/appointment-controller')
 router.post('/makeappointment', authCheck, appointmentController.makeappointment)
 router.get('/get', authCheck, appointmentController.getAppointment)
 router.patch("/update/:id", authCheck, appointmentController.update)
+router.delete("/delete/:id", authCheck ,appointmentController.delete)
+
 
 
 module.exports = router

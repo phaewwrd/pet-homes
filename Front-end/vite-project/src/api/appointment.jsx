@@ -45,3 +45,11 @@ export const actionUpdateAppointment = async (id,value, token) => {
         throw error;
     }
 };
+
+export const actionDeleteAppointment = async (id, token) => {
+    return await axios.delete(`http://localhost:8800/appointment/delete/${id}`, {
+       headers: {
+          Authorization: `Bearer ${token}`
+       }
+    })
+ }

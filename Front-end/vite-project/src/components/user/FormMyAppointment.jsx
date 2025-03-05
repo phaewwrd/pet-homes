@@ -7,7 +7,6 @@ import useAppointmentStore from "../../stores/appointment-store";
 import AllFormUpdateAppointment from "../Appointment/AllFormUpdateAppointment";
 
 function FormMyAppointment() {
-  const token = useAuthStore((state) => state.token);
   const appointment = useAppointmentStore((state) => state.appointment);
   const [isOpen, setIsOpen] = useState(null);
 
@@ -68,7 +67,7 @@ function FormMyAppointment() {
           {/* Appointment Data */}
           {appointment.map((el ,index)=>(
            
-           <AllFormUpdateAppointment     fetchAppointmentData={fetchAppointmentData} isOpen={isOpen} setIsOpen={setIsOpen} checkId={checkId} appointment={el} index={index} />
+           <AllFormUpdateAppointment  fetchAppointmentData={fetchAppointmentData} isOpen={isOpen} setIsOpen={setIsOpen} checkId={checkId} appointment={el} index={index} />
          
        ))}
         </div>

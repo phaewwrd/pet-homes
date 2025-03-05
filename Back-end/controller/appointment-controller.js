@@ -46,11 +46,16 @@ exports.getAppointment = async (req, res, next) =>{
             select:{
                 date: true,
                 time: true,
+                petId: true,
                 pet: true,
+                vetClinicId: true,
                 vetClinic: true,
                 id: true,
+
             }
         })
+
+       
 
 
         res.json({result: data});
@@ -66,7 +71,7 @@ exports.update = async (req, res, next) => {
   
       const {
         petId,
-        vetId,
+        vetClinicId,
         date,
         time,
       
@@ -88,7 +93,7 @@ exports.update = async (req, res, next) => {
       },
         data: {
           petId: +petId,
-          vetId : vetId,
+          vetClinicId : +vetClinicId,
           date : date,
           time : time,
         },
@@ -98,3 +103,19 @@ exports.update = async (req, res, next) => {
       next(error);
     }
   };
+
+  exports.delete = async (req, res, next) => {
+    try {
+      const  {id}  = req.params;
+      console.log(id);
+      const deleted = await prisma.vetAppointment.delete({
+        where: {
+          id: +id,
+        },
+      });
+      res.json({ message: " Delete Pet Successfully" });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
