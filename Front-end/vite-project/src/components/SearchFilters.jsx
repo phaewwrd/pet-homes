@@ -9,14 +9,12 @@ import useProvincetStore from "../stores/province-store";
 import useLocationStore from "../stores/location-store";
 
 function SearchFilters() {
-  const location = useLocationStore((state) => state.location);
+  const {location, setLocation} = useLocationStore()
 
 
   const {
-    searchQuery,
     selectedPetType,
     selectedProvince,
-    setSearchQuery,
     setSelectedPetType,
     setSelectedProvince,
   } = useSearchStore();
@@ -32,18 +30,17 @@ function SearchFilters() {
     // Call API to search vet
     try {
       const fetchDataSearch = await actionSearchVets({
-        searchQuery,
         selectedPetType,
         selectedProvince,
       });
-      console.log("ddd",fetchDataSearch);
+     setLocation(fetchDataSearch.data );
+      console.log("ddd",fetchDataSearch.data);
       console.log("Search params:", {searchQuery, selectedPetType, selectedProvince});
     } catch (error) {
       console.log(error);
     }
     
   };
-  console.log(location);
   
 
   return (
@@ -70,12 +67,12 @@ function SearchFilters() {
 
           <div className="flex flex-col mt-5 relative z-10  place-items-center ">
             {/* input Search */}
-            <input
+            {/* <input
               type="text"
               placeholder="Search"
               className="input input-bordered w-[294px] max-w-xs "
               onChange={(e) => setSearchQuery(String(e.target.value))}
-            />
+            /> */}
             {/* --------------------------------------------- */}
 
             {/* Select */}

@@ -102,14 +102,7 @@ export default function AllFormUpdateUser({
           </div>
           {/* Button */}
           <div className="flex justify-end gap-2 mt-10 pb-5  w-full">
-            {/* delete */}
-            <button
-              type="button"
-              onClick={() => DeletePopUp(pet?.id)}
-              className="btn btn-ghost"
-            >
-              delete
-            </button>
+     
             {/* cancle */}
             <button
               type="button"

@@ -64,7 +64,11 @@ console.log('data 2',data);
       {/* buttons */}
       <div className="w-full flex justify-center">
       <div className="w-[1149px] flex justify-end gap-10">
-        <div className="btn btn-secondary w-[167px] ">Delete</div>
+        {/* /Cancel */}
+        <div className="btn btn-secondary w-[167px] "
+        onClick={() => navigate("/member/myprofile")}
+        >Cancel</div>
+        {/* confirm */}
         <div className="btn btn-accent w-[200px]"
         onClick={() => hdlConfirm(data, token)}
         >Confirm</div>

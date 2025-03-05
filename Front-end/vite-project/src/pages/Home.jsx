@@ -18,7 +18,7 @@ function Home() {
 
 
   return (
-    <div className="w-full bg-amber-50 pt-10 pb-10 h-full">
+    <div className="w-full bg-amber-50 pt-10 pb-10 ">
     
       <SearchFilters />
       <LocationFrom />
