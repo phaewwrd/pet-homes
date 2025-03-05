@@ -4,11 +4,12 @@ import { Pawlogo, VetsLogo } from "../Icons";
 import { actionMaps, actionSearchVets } from "../api/vets";
 import useSearchStore from "../stores/search-store";
 import LocationFrom from "./User-Vets/LocationFrom";
-import useLocationStore from "../stores/location-store";
 import useTypeStore from "../stores/type-store";
 import useProvincetStore from "../stores/province-store";
+import useLocationStore from "../stores/location-store";
 
 function SearchFilters() {
+  const location = useLocationStore((state) => state.location);
 
 
   const {
@@ -20,7 +21,6 @@ function SearchFilters() {
     setSelectedProvince,
   } = useSearchStore();
 
-  const {location, setLocation} = useLocationStore();
   const type = useTypeStore((state) => state.type);
   const province = useProvincetStore((state) => state.province)
 
@@ -37,7 +37,6 @@ function SearchFilters() {
         selectedProvince,
       });
       console.log("ddd",fetchDataSearch);
-      setLocation(fetchDataSearch.data);
       console.log("Search params:", {searchQuery, selectedPetType, selectedProvince});
     } catch (error) {
       console.log(error);

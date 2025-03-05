@@ -1,32 +1,29 @@
 import React, { useEffect, useState } from "react";
 
 import VetsMapLogo from "../Logo/VetsMapLogo";
-import {MapContainer, TileLayer, Popup, Marker, useMap} from "react-leaflet";
+import { MapContainer, TileLayer, Popup, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import useSearchStore from "../../stores/search-store";
-import useLocationStore from "../../stores/location-store";
-import { actionMaps } from "../../api/vets";
 import useTypeStore from "../../stores/type-store";
 import useProvincetStore from "../../stores/province-store";
+import useLocationStore from "../../stores/location-store";
+import { use } from "react";
 
 function LocationFrom() {
-
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState(null);
   const itemsPerPage = 4;
-  const {location, setLocation} = useLocationStore();
 
+const location = useLocationStore((state) => state.location);
+console.log(location);
 
-  // const  resLocation  = useLocationStore(state => state.location);
-  // console.log(resLocation);
-  
   //Calcutate
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = location?.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(location?.length / itemsPerPage);
 
-  const {type, setType} = useTypeStore();
+  const { type, setType } = useTypeStore();
   const { province, setProvince } = useProvincetStore();
 
   const hdlPagesChange = (page) => {
@@ -39,29 +36,15 @@ function LocationFrom() {
 
   // fetch all vets data from api
   useEffect(() => {
- const fetchData = async () => {
-      try {
-        const res = await actionMaps();
-        if (res && res.data) {
-          setType(res.data);
-          setProvince(res.data);
-          setLocation(res.data);
-        }
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-
-    fetchData()
+    setType(location);
+    setProvince(location);
   }, []);
-  
 
   return (
-    
     <div className="flex gap-10 w-full justify-center bg-accent p-10 h-[900px]">
       <div className="bg-base-100 p-10 rounded-xl flex flex-col w-[500px] gap-10">
         {/* location 1 */}
-        
+
         {currentItems?.map((item, index) => (
           <div key={index} className="flex flex-col gap-2">
             <div className="text-accent border-b-[0.5px] border-accent pb-5">
@@ -101,36 +84,36 @@ function LocationFrom() {
       <div className="flex flex-col gap-10  ">
         <VetsMapLogo />
         <div className="flex w-[700px] h-[200px] justify-center">
-        <MapContainer
-          className=" w-[700px] h-[500px]"
-          center={
-            searchTerm
-              ? searchTerm.location
-                  .split(",")
-                  .map((coord) => Number(coord.trim()))
-              : [13.7384, 100.5321]
-          }
-          zoom={13}
-          scrollWheelZoom={false}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker
-            position={
+          <MapContainer
+            className=" w-[700px] h-[500px]"
+            center={
               searchTerm
                 ? searchTerm.location
                     .split(",")
                     .map((coord) => Number(coord.trim()))
                 : [13.7384, 100.5321]
             }
+            zoom={13}
+            scrollWheelZoom={false}
           >
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </MapContainer>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker
+              position={
+                searchTerm
+                  ? searchTerm.location
+                      .split(",")
+                      .map((coord) => Number(coord.trim()))
+                  : [13.7384, 100.5321]
+              }
+            >
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          </MapContainer>
         </div>
       </div>
     </div>

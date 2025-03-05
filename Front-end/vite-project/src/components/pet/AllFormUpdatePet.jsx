@@ -4,18 +4,19 @@ import { PetHomeLogo } from "../../Icons";
 import useAuthStore from "../../stores/auth-store";
 import { actionDeletePet, actionUpdatePet } from "../../api/pet";
 import sweetalert from "sweetalert2";
+import usePetStore from "../../stores/pet-store";
 
 export default function AllFormUpdatepet({
   pet,
   isOpen,
   checkPetId,
   index,
-  fetchData,
   setIsOpen,
 }) {
   const [editData, setEditData] = useState(pet);
 
   const token = useAuthStore((state) => state.token);
+  const fetchPetData = usePetStore((state) => state.fetchPetData);
 
   const handleUpdatePet = async () => {
     try {
@@ -25,8 +26,7 @@ export default function AllFormUpdatepet({
     } finally {
       setIsOpen(false);
     }
-
-    fetchData();
+    fetchPetData();
   };
 
 //   sweetalert.fire

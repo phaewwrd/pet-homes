@@ -7,29 +7,14 @@ import AddNewPet from "../../pages/user/AddNewPet";
 import AllFormUpdatepet from "./AllFormUpdatepet";
 
 function FormPet() {
-  const { pet, setPet } = usePetStore();
+  const pet = usePetStore((state)=> state.pet);
   const [isOpen, setIsOpen] = useState(null);
 
-  const token = useAuthStore((state) => state.token);
-  console.log(token);
 
   
   const checkPetId = (index) => {
     setIsOpen((prev) => (prev === index ? null : index));
   };
-
-  const fetchData = async () => {
-    try {
-      const petData = await actionGetPet(token);
-      setPet(petData.data.result);
-    } catch (error) {
-      console.error("Error fetching admin data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   console.log(pet);
 
@@ -75,11 +60,11 @@ function FormPet() {
           </div>
           {/* pet info. */}
           {pet.map((el, index) => (
-           <AllFormUpdatepet pet={el} isOpen={isOpen} setIsOpen={setIsOpen} checkPetId={checkPetId} index={index} fetchData={fetchData}/>
+           <AllFormUpdatepet pet={el} isOpen={isOpen} setIsOpen={setIsOpen} checkPetId={checkPetId} index={index} />
           ))}
         </div>
       </div>
-      <AddNewPet  fetchData={fetchData} />
+      <AddNewPet   />
     </div>
   );
 }

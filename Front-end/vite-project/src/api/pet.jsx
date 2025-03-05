@@ -2,20 +2,19 @@ import axios from "axios"
 
 export const actionPetRegister = async (value, token) => {
     try {
-        console.log("valueeeeee",value);
         const response = await axios.post(
             'http://localhost:8800/pet/add',value, 
             {
                 
                 headers: {
-                    Authorization: `Bearer ${token}` // ส่ง token ใน header
+                    Authorization: `Bearer ${token}` 
                 }
             }
         );
-        return response.data; // ส่งข้อมูลที่ตอบกลับมา
+        return response.data; 
     } catch (error) {
         console.error("Error during pet registration:", error);
-        throw error; // ส่งข้อผิดพลาดออกมา
+        throw error; 
     }
 };
 

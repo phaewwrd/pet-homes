@@ -3,6 +3,7 @@ import axios from "axios"
 // Maps location
 export const actionMaps = async () =>{
     const res = await axios.get('http://localhost:8800/maps/getallvets', )
+    console.log(res);
     return res
 }
 

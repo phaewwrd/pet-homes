@@ -29,18 +29,21 @@ exports.info = async(req,res,next)=>{
 
 exports.updateUser = async(req,res,next) =>{
     try {
-        const {id} = req.params
-        const { firstName, lastName, tel, email} = req.user
+        const userId = req.params
+        const { firstName, lastName, tel, email} = req.body
         
-        const userId = await prisma.user.findFirst({
+        const user = await prisma.user.findFirst({
             where:{
-                id: Number(id)
+                id: +userId.id
             }
         })
+        if(!user){
+            return res.status(404).json({ error: "Pet not found" });
+          }
 
         const updated = await prisma.user.update({
             where:{
-                id: Number(id)
+                id: +userId.id
             },
             data:{
                 firstName: firstName,

@@ -58,7 +58,8 @@ model Pet {
 
 model VetAppointment {
   id          Int        @id @default(autoincrement())
-  date        DateTime
+  date        String
+  time        String
   pet         Pet        @relation(fields: [petId], references: [id])
   petId       Int
   vetClinic   VetClinic? @relation(fields: [vetClinicId], references: [id])
