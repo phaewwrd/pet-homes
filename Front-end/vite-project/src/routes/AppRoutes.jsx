@@ -16,6 +16,7 @@ import AddNewPet from "../pages/user/AddNewPet";
 import LayoutAdmin from "../layout/LayoutAdmin";
 import VetsMakeappointment from "../pages/user-vets/VetsMakeappointment";
 import ProtectRoutes from "../layout/ProtectRoutes";
+import GuestRoutes from "../layout/ProtectRouteGuest";
 
 
 function AppRoutes() {
@@ -23,7 +24,7 @@ function AppRoutes() {
     <>
       <Routes>
         {/* Public */}
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<GuestRoutes />}>
           <Route index element={<Home />} />
           <Route path="login" element={<Membership />} />
           <Route path="register" element={<Register />} />

@@ -18,6 +18,7 @@ function FormRegister() {
   console.log(isSubmitting);
   console.log(errors);
 
+
   const hdlSubmit = async (value) => {
     try {
       const res = await actionRegister(value);
@@ -39,21 +40,23 @@ function FormRegister() {
         </div>
         <form onSubmit={handleSubmit(hdlSubmit)}>
           <div className="bg-white w-[449px] gap-5 p-5 rounded-b-lg pt-10 pb-10 flex flex-col justify-center place-items-center">
-            <FormInput register={register} name="firstName" errors={errors} />
-            <FormInput register={register} name="lastName" errors={errors} />
-            <FormInput register={register} name="tel" errors={errors} />
-            <FormInput register={register} name="email" errors={errors} />
+            <FormInput register={register} name="firstName" label="First Name" errors={errors} />
+            <FormInput register={register} name="lastName" label="Last Name" errors={errors} />
+            <FormInput register={register} name="tel" label="Phone Number" errors={errors} />
+            <FormInput register={register} name="email" label="Email" errors={errors} />
             <FormInput
               register={register}
               name="password"
               errors={errors}
               type="password"
+              label="Password"
             />
             <FormInput
               register={register}
               name="confirmPassword"
               errors={errors}
               type="password"
+              label="Confirm Password"
             />
           </div>
           <div className="flex justify-end  w-full  mt-5">

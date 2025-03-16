@@ -2,12 +2,9 @@ import { create } from "zustand";
 
 
 const useSearchStore = create((set) =>({
-    searchQuery: '',
     selectedPetType :'',
     selectedProvince: '',
-    setSearchQuery: (value) =>{
-        set({searchQuery: value})
-    },
+
     setSelectedPetType : (value) =>{
         set({selectedPetType: value})
     },

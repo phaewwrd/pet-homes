@@ -1,8 +1,17 @@
 import React from 'react'
 import { Link } from "react-router";
 import { PetsHome } from "../Icons";
+import { use } from 'react';
+import useAuthStore from '../stores/auth-store';
 
 function MainNavUser() {
+  const actionLogout = useAuthStore((state) => state.actionLogout);
+
+  const handleLogout = () => {
+      actionLogout();
+      window.location.href = "/";
+  }
+
     return (
         <nav className=" text-teal-800 h-[100px] bg-white px-[135px] py-[21px]">
           <div className="flex justify-between">
@@ -37,12 +46,13 @@ function MainNavUser() {
                 Make appointment
               </Link>
               {/* Logout */}
-              <Link
-                to="/"
+              <div
+                
+                onClick={handleLogout}
                 className="btn btn-secondary w-[125px] text-[14px] border-teal-600"
               >
                 Log out
-              </Link>
+              </div>
             
              
             </div>

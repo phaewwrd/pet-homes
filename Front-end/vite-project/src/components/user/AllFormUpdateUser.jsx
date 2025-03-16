@@ -28,9 +28,7 @@ export default function AllFormUpdateUser({
         fetchData();
     };
     
-    console.log('tokennn',token);
-    console.log('testtpor',userInfo);
-  console.log("editdataUser", editData);
+
   return (
     <div className="  ">
       <div className="flex flex-col  w-full  rounded-lg bg-base-100  p-5">

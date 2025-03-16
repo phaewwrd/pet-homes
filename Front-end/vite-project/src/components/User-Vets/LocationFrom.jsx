@@ -22,6 +22,7 @@ console.log(location);
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = location?.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(location?.length / itemsPerPage);
+  const fetchData = useLocationStore((state) => state.fetchData);
 
   const { type, setType } = useTypeStore();
   const { province, setProvince } = useProvincetStore();

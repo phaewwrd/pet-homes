@@ -1,10 +1,10 @@
 import React from 'react'
 
 function FormInput(props) {
-    const {register, name, errors, type="text"} = props
+    const {register, name, errors, type="text", label} = props
   return (
     <div> 
-      <label>{name}</label>
+      <label>{label}</label>
       <div className='mt-2'>
         <input type={type} 
         placeholder={name}

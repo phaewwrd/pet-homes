@@ -1,14 +1,19 @@
 import React from "react";
 import { Link } from "react-router";
 import { PetsHome } from "../Icons";
+import useLocationStore from "../stores/location-store";
 
 function MainNav() {
+  const fetchdata = useLocationStore((state) => state.fetchData);
+  const actionFetchlocation = () => {
+    fetchdata()
+  };
   return (
     <nav className=" text-teal-800 h-[100px] bg-white px-[135px] py-[21px]">
       <div className="flex justify-between">
         <Link to="/">
           <div className="flex gap-5">
-          <PetsHome className="text-teal-800 w-[58px]" />
+          <PetsHome onClick={actionFetchlocation} className="text-teal-800 w-[58px]" />
           <div className="self-center">
             <span
               className="font-bold text-4xl "

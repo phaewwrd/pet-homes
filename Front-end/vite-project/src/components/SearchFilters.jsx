@@ -7,10 +7,21 @@ import LocationFrom from "./User-Vets/LocationFrom";
 import useTypeStore from "../stores/type-store";
 import useProvincetStore from "../stores/province-store";
 import useLocationStore from "../stores/location-store";
+import useAuthStore from "../stores/auth-store";
 
 function SearchFilters() {
   const {location, setLocation} = useLocationStore()
+  const type = useTypeStore((state) => state.type);
+  const province = useProvincetStore((state) => state.province)
+  const token = useAuthStore((state) => state.token);
 
+  const actionRefresh = () =>{
+    if (token){
+      window.location.href = "/member";
+    }else{
+      window.location.href = "/";
+    }
+  }
 
   const {
     selectedPetType,
@@ -19,8 +30,7 @@ function SearchFilters() {
     setSelectedProvince,
   } = useSearchStore();
 
-  const type = useTypeStore((state) => state.type);
-  const province = useProvincetStore((state) => state.province)
+ 
 
 // console.log(type.data);
 
@@ -34,8 +44,9 @@ function SearchFilters() {
         selectedProvince,
       });
      setLocation(fetchDataSearch.data );
+    //  fetchData()
       console.log("ddd",fetchDataSearch.data);
-      console.log("Search params:", {searchQuery, selectedPetType, selectedProvince});
+      console.log("Search params:", { selectedPetType, selectedProvince});
     } catch (error) {
       console.log(error);
     }
@@ -136,6 +147,15 @@ function SearchFilters() {
                   onClick={hdlSearchBtn}
                 >
                   Search
+                </button>
+              </div>
+              {/* Cancel bt */}
+              <div className="">
+                <button
+                  className="btn btn-base-300 text-slate-600 mt-5 w-[100px]"
+                  onClick={actionRefresh}
+                >
+                  Cancel
                 </button>
               </div>
             </div>
