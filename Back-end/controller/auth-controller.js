@@ -26,7 +26,7 @@ exports.register = async( req, res, next) =>{
             }
         })
         
-        res.json({message : 'register success!', profile});
+        res.status(201).json({message : 'register success!', profile});
         
     } catch (error) {
         next(error)
@@ -45,7 +45,8 @@ exports.login = async( req, res, next) =>{
             return createError(404, "Invalid Email or Password!!")
         }
 
-        const isMatch = await bcrypt.compareSync(password,profile.password)
+        const isMatch =  bcrypt.compareSync(password,profile.password)
+
         if(!isMatch){
             return createError(400,"Invalid Email or Password!!")
         }
@@ -61,7 +62,7 @@ exports.login = async( req, res, next) =>{
             expiresIn:"30d"
         })
 
-        res.json({message: 'Login success!', payload: payload, token: token});
+        res.status(200).json({message: 'Login success!', payload: payload, token: token});
     } catch (error) {
         next(error)
     }
