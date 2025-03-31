@@ -65,7 +65,7 @@ function FormMyAppointment() {
             </div>
           </div>
           {/* Appointment Data */}
-          {appointment.map((el ,index)=>(
+          {appointment?.map((el ,index)=>(
            
            <AllFormUpdateAppointment  fetchAppointmentData={fetchAppointmentData} isOpen={isOpen} setIsOpen={setIsOpen} checkId={checkId} appointment={el} index={index} />
          

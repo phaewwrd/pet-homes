@@ -6,7 +6,6 @@ import { Routes, Route, Outlet } from "react-router";
 import Home from "../pages/Home";
 import Register from "../pages/auth/Register";
 import Membership from "../pages/auth/Membership";
-import Dashboard from "../pages/user-vets/Dashboard";
 import UserHome from "../pages/user/UserHome";
 import UserMakeappoinement from "../pages/user/UserMakeappoinement";
 import MyProfile from "../pages/user/MyProfile";
@@ -17,6 +16,10 @@ import LayoutAdmin from "../layout/LayoutAdmin";
 import VetsMakeappointment from "../pages/user-vets/VetsMakeappointment";
 import ProtectRoutes from "../layout/ProtectRoutes";
 import GuestRoutes from "../layout/ProtectRouteGuest";
+import ProtectVetsRoutes from "../layout/ProtectVetsRoutes";
+import VetsMembership from "../pages/auth/vetsMembership";
+import VetsRegister from "../pages/auth/VetsRegister";
+import VetsDashboard from "../pages/user-vets/VetsDashboard";
 
 
 function AppRoutes() {
@@ -28,6 +31,8 @@ function AppRoutes() {
           <Route index element={<Home />} />
           <Route path="login" element={<Membership />} />
           <Route path="register" element={<Register />} />
+          <Route path="vet/login" element={<VetsMembership />} />
+          <Route path="vet/register" element={<VetsRegister />} />
         </Route>
 
         {/* Membership */}
@@ -49,8 +54,8 @@ function AppRoutes() {
         </Route> */}
 
         {/* Vets Membership */}
-        <Route path="/admin" element={<ProtectRoutes el={<LayoutAdmin />} allows={"ADMIN"}/>}>
-          <Route index element={<Dashboard />}/>
+        <Route path="/vet" element={<ProtectVetsRoutes el={<LayoutAdmin />} allows={"VETS"}/>}>
+          <Route index element={<VetsDashboard />}/>
           <Route path="vetsmakeappointment" element={<VetsMakeappointment />} />
 
         </Route>

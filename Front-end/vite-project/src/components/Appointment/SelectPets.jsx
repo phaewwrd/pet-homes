@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import usePetStore from '../../stores/pet-store';
+import { actionGetPet } from '../../api/pet';
 
 function SelectPets({ data, setData}) {
+  const pet = usePetStore((state) => state.pet);
+  console.log(pet);
+  const fetchPetData = usePetStore((state) => state.fetchPetData);
+  useEffect(()=>{
+    fetchPetData()
+  },[])
   
-const pet = usePetStore((state) => state.pet);
 
 const hdlOnChange = (e) => {
   setData({ ...data, petId: e });}
@@ -22,9 +28,9 @@ const hdlOnChange = (e) => {
           <option value="" disabled selected>
             Select Pets
           </option>
-          { pet.map((pet)=> (
-          <option key={pet.id} value={pet.id} name="pet"
-          >{pet.name}</option>
+          { pet?.map((pet)=> (
+          <option key={pet?.id} value={pet?.id} name="pet"
+          >{pet?.name}</option>
         ))}
         </select>
       </div>

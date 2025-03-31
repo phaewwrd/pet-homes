@@ -6,7 +6,7 @@ import { actionDeleteAppointment, actionUpdateAppointment } from "../../api/appo
 import usePetStore from "../../stores/pet-store";
 import useLocationStore from "../../stores/location-store";
 import Calendar from "react-calendar";
-import sweetalert from "sweetalert2";
+import Swal from "sweetalert2";
 
 
 export default function AllFormUpdateAppointment({
@@ -30,7 +30,15 @@ export default function AllFormUpdateAppointment({
   });
 
   const handleDateChange = (date) => {
-    if (!date) return;
+
+   const currentDate = new Date();
+       if (date < currentDate) {
+         Swal.fire({
+           icon: "error",
+           title: "Invalid Date",
+           text: "Please select a future date.",
+         });
+       }
     const formattedDate = date.toLocaleDateString("en-CA"); // "YYYY-MM-DD"
     setEditData({ ...editData, date: formattedDate });
   };
@@ -41,7 +49,7 @@ export default function AllFormUpdateAppointment({
 
   //   sweetalert.fire
   const DeletePopUp = () => {
-    sweetalert
+    Swal
       .fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",

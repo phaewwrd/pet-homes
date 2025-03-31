@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import Swal from "sweetalert2";
 
 function DateTime({ hdlOnChange, data, setData }) {
   const timeSlots = ["10:00", "12:00", "14:00", "16:00", "18:00", "19:00"];
@@ -8,7 +9,14 @@ function DateTime({ hdlOnChange, data, setData }) {
   const [time, setTime] = useState("");
 
   const handleDateChange = (date) => {
-    if (!date) return;
+    const currentDate = new Date();
+    if (date < currentDate) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Date",
+        text: "Please select a future date.",
+      });
+    }
     // ใช้ toLocaleDateString() ให้ตรงกับไทม์โซนปัจจุบัน
     const formattedDate = date.toLocaleDateString("en-CA"); // "YYYY-MM-DD"
     setData({ ...data, date: formattedDate });

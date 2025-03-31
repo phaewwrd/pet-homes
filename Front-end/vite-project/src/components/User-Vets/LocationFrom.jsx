@@ -9,6 +9,19 @@ import useProvincetStore from "../../stores/province-store";
 import useLocationStore from "../../stores/location-store";
 import { use } from "react";
 
+// Component สำหรับอัปเดตตำแหน่งของแผนที่
+const MapUpdater = ({ position }) => {
+  const map = useMap();
+  
+  useEffect(() => {
+    if (position) {
+      map.setView(position, 13); // อัปเดตตำแหน่งและซูม
+    }
+  }, [position, map]);
+
+  return null;
+};
+
 function LocationFrom() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState(null);
@@ -40,6 +53,11 @@ console.log(location);
     setType(location);
     setProvince(location);
   }, []);
+
+  const defaultPosition = [13.7384, 100.5321];
+  const currentPosition = searchTerm
+    ? searchTerm.location.split(",").map((coord) => Number(coord.trim()))
+    : defaultPosition;
 
   return (
     <div className="flex gap-10 w-full justify-center bg-accent p-10 h-[900px]">
@@ -85,15 +103,9 @@ console.log(location);
       <div className="flex flex-col gap-10  ">
         <VetsMapLogo />
         <div className="flex w-[700px] h-[200px] justify-center">
-          <MapContainer
-            className=" w-[700px] h-[500px]"
-            center={
-              searchTerm
-                ? searchTerm.location
-                    .split(",")
-                    .map((coord) => Number(coord.trim()))
-                : [13.7384, 100.5321]
-            }
+        <MapContainer
+            className="w-[700px] h-[500px]"
+            center={currentPosition}
             zoom={13}
             scrollWheelZoom={false}
           >
@@ -101,19 +113,10 @@ console.log(location);
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker
-              position={
-                searchTerm
-                  ? searchTerm.location
-                      .split(",")
-                      .map((coord) => Number(coord.trim()))
-                  : [13.7384, 100.5321]
-              }
-            >
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
+            <Marker position={currentPosition}>
+              <Popup>{searchTerm ? searchTerm.name : "Vets."}</Popup>
             </Marker>
+            <MapUpdater position={currentPosition} />
           </MapContainer>
         </div>
       </div>

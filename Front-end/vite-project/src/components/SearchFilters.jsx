@@ -14,13 +14,12 @@ function SearchFilters() {
   const type = useTypeStore((state) => state.type);
   const province = useProvincetStore((state) => state.province)
   const token = useAuthStore((state) => state.token);
+  const fetchData = useLocationStore((state) => state.fetchData);
+
+
 
   const actionRefresh = () =>{
-    if (token){
-      window.location.href = "/member";
-    }else{
-      window.location.href = "/";
-    }
+    fetchData()
   }
 
   const {
