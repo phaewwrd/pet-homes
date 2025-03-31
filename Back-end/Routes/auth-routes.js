@@ -13,4 +13,5 @@ router.post("/register", validateWithZod(registerSchema),authController.register
 router.post("/login", validateWithZod(loginScheme),authController.login)
 router.get("/me", authCheck, authController.getMe)
 
+
 module.exports = router;

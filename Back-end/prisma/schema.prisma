@@ -16,6 +16,7 @@ datasource db {
 enum Role {
   USER
   ADMIN
+  VETS
 }
 
 model User {
@@ -35,10 +36,12 @@ enum type {
   NORMAL
   EXOTIC
 }
+
 enum gender {
   MALE
   FEMALE
 }
+
 model Pet {
   id             Int              @id @default(autoincrement())
   name           String?
@@ -47,8 +50,8 @@ model Pet {
   vaccined       String?
   age            String?
   breed          String?
-  type           type?             @default(NORMAL)
-  gender         gender?           @default(MALE)
+  type           type?            @default(NORMAL)
+  gender         gender?          @default(MALE)
   user           User             @relation(fields: [userId], references: [id])
   userId         Int
   VetAppointment VetAppointment[]
@@ -57,15 +60,23 @@ model Pet {
 }
 
 model VetAppointment {
-  id          Int        @id @default(autoincrement())
-  date        String
-  time        String
-  pet         Pet        @relation(fields: [petId], references: [id])
-  petId       Int
-  vetClinic   VetClinic? @relation(fields: [vetClinicId], references: [id])
-  vetClinicId Int?
+  id            Int           @id @default(autoincrement())
+  date          String
+  time          String
+  pet           Pet           @relation(fields: [petId], references: [id])
+  petId         Int
+  vetClinic     VetClinic?    @relation(fields: [vetClinicId], references: [id])
+  vetClinicId   Int?
+  bookingStatus bookingStatus @default(PENDING)
 
   @@map("vet_appointment")
+}
+
+enum bookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
 }
 
 model VetClinic {
@@ -79,8 +90,9 @@ model VetClinic {
   phone          String
   picture        String?
   province       String
-  type           String
+  type           type             @default(NORMAL)
   VetAppointment VetAppointment[]
+  role           Role             @default(VETS)
 
   @@map("vet_clinic")
 }

@@ -87,3 +87,57 @@ exports.getMe = async( req, res, next) =>{
         next(error)
     }
 }
+exports.getVets = async( req, res, next) =>{
+    try {
+        const {id} = req.user
+        const profile = await prisma.vetClinic.findFirst({
+            where:{
+                id,
+            },
+            select:{
+                id: true,
+                email: true,
+                role: true
+            }
+        })
+
+        res.json({result: profile});
+    } catch (error) {
+        next(error)
+    }
+}
+
+exports.vetsLogin = async( req, res, next) =>{
+    try {
+        const { email, password} = req.body
+        const profile = await prisma.vetClinic.findFirst({
+            where:{
+                email: email
+            }
+        })
+        if(!profile){
+            return createError(404, "Invalid Email or Password!!")
+        }
+
+        const isMatch =  bcrypt.compareSync(password,profile.password)
+
+        if(!isMatch){
+            return createError(400,"Invalid Email or Password!!")
+        }
+
+        const payload = {
+            id : profile.id,
+            email : profile.email,
+            firstName: profile.firstName,
+            lastName : profile.lastName,
+            role: profile.role
+        }
+        const token = jwt.sign(payload, process.env.SECRET_KEY,{
+            expiresIn:"30d"
+        })
+
+        res.status(200).json({message: 'Login success!', payload: payload, token: token});
+    } catch (error) {
+        next(error)
+    }
+}

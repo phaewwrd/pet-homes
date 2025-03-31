@@ -9,7 +9,7 @@ const authRouter = require('./Routes/auth-routes')
 const userRouter = require('./Routes/user-routes')
 const petRouter = require('./Routes/pet-routes')
 const adminRouter = require('./Routes/admin-routes')
-const officerRouter = require('./Routes/officer-routes')
+const vetsRouter = require('./Routes/vets-routes')
 const mapRouter = require('./Routes/map-routes')
 const appointmentRouter = require('./Routes/appointment-routes')
 
@@ -24,7 +24,7 @@ app.use("/member", userRouter)
 app.use("/pet", petRouter)
 app.use("/appointment", appointmentRouter)
 app.use("/admin", adminRouter)
-app.use("/officer", officerRouter)
+app.use("/vet", vetsRouter)
 app.use("/maps", mapRouter)
 
 
