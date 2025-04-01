@@ -10,17 +10,15 @@ import useLocationStore from "../stores/location-store";
 import useAuthStore from "../stores/auth-store";
 
 function SearchFilters() {
-  const {location, setLocation} = useLocationStore()
+  const { location, setLocation } = useLocationStore();
   const type = useTypeStore((state) => state.type);
-  const province = useProvincetStore((state) => state.province)
+  const province = useProvincetStore((state) => state.province);
   const token = useAuthStore((state) => state.token);
   const fetchData = useLocationStore((state) => state.fetchData);
 
-
-
-  const actionRefresh = () =>{
-    fetchData()
-  }
+  const actionRefresh = () => {
+    fetchData();
+  };
 
   const {
     selectedPetType,
@@ -29,11 +27,7 @@ function SearchFilters() {
     setSelectedProvince,
   } = useSearchStore();
 
- 
-
-// console.log(type.data);
-
-
+  // console.log(type.data);
 
   const hdlSearchBtn = async () => {
     // Call API to search vet
@@ -42,20 +36,18 @@ function SearchFilters() {
         selectedPetType,
         selectedProvince,
       });
-     setLocation(fetchDataSearch.data );
-    //  fetchData()
-      console.log("ddd",fetchDataSearch.data);
-      console.log("Search params:", { selectedPetType, selectedProvince});
+      setLocation(fetchDataSearch.data);
+      //  fetchData()
+      console.log("ddd", fetchDataSearch.data);
+      console.log("Search params:", { selectedPetType, selectedProvince });
     } catch (error) {
       console.log(error);
     }
-    
   };
-  
 
   return (
     <div className="flex flex-col justify-center w-full pt-[20px]">
-      <div className="w-full flex justify-center h-[535px] ">
+      <div className="w-full flex justify-center h-[615px] ">
         <div className="text-secondary-content  text-5xl ">
           {/* Title */}
           <div className=" flex justify-center gap-5 z-10">
@@ -75,16 +67,7 @@ function SearchFilters() {
 
           {/* --------------------------------------------- */}
 
-          <div className="flex flex-col mt-5 relative z-10  place-items-center ">
-            {/* input Search */}
-            {/* <input
-              type="text"
-              placeholder="Search"
-              className="input input-bordered w-[294px] max-w-xs "
-              onChange={(e) => setSearchQuery(String(e.target.value))}
-            /> */}
-            {/* --------------------------------------------- */}
-
+          <div className="flex flex-col mt-5 relative z-10 backdrop-blur-sm p-5 rounded-lg place-items-center ">
             {/* Select */}
             <div className="flex justify-center mt-3 gap-6 drop-shadow-lg">
               {/* type of Pets */}
@@ -92,7 +75,7 @@ function SearchFilters() {
                 <label className="label" />
                 <select
                   value={selectedPetType}
-                  className="select select-bordered w-full max-w-xs bg-primary text-white "
+                  className="select select-bordered w-full max-w-xs border-primary "
                   onChange={(e) => setSelectedPetType(String(e.target.value))}
                 >
                   <option value="" disabled>
@@ -101,7 +84,10 @@ function SearchFilters() {
                   {type
                     .filter(
                       (pet, index, self) =>
-                        index === self.findIndex((p) => String(p.type) === String(pet.type))
+                        index ===
+                        self.findIndex(
+                          (p) => String(p.type) === String(pet.type)
+                        )
                     )
                     .map((res) => (
                       <option key={res.id} value={res.type}>
@@ -117,7 +103,7 @@ function SearchFilters() {
                 <label className="label " />
                 <select
                   value={selectedProvince}
-                  className="select select-bordered w-full max-w-xs bg-primary text-white"
+                  className="select select-bordered w-full max-w-xs  border-primary"
                   onChange={(e) => setSelectedProvince(e.target.value)}
                 >
                   <option value="" disabled>
@@ -127,7 +113,10 @@ function SearchFilters() {
                     .filter(
                       (province, index, self) =>
                         index ===
-                        self.findIndex((p) => String( p.province) === String(province.province))
+                        self.findIndex(
+                          (p) =>
+                            String(p.province) === String(province.province)
+                        )
                     )
                     .map((res) => (
                       <option key={res.id} value={res.province}>
@@ -138,25 +127,27 @@ function SearchFilters() {
               </div>
 
               {/* --------------------------------------------- */}
-
-              {/* Search bt */}
-              <div className="">
-                <button
-                  className="btn btn-accent mt-5 w-[146px]"
-                  onClick={hdlSearchBtn}
-                >
-                  Search
-                </button>
-              </div>
-              {/* Cancel bt */}
-              <div className="">
-                <button
-                  className="btn btn-base-300 text-slate-600 mt-5 w-[100px]"
-                  onClick={actionRefresh}
-                >
-                  Cancel
-                </button>
-              </div>
+            </div>
+            {/* btn */}
+            <div className="flex justify-center gap-5">
+            {/* Search bt */}
+            <div className="">
+              <button
+                className="btn btn-accent mt-5 w-[146px]"
+                onClick={hdlSearchBtn}
+              >
+                Search
+              </button>
+            </div>
+            {/* Cancel bt */}
+            <div className="">
+              <button
+                className="btn btn-base-200 shadow-none text-slate-600 mt-5 w-[100px]"
+                onClick={actionRefresh}
+              >
+                Cancel
+              </button>
+            </div>
             </div>
           </div>
           {/* --------------------------------------------- */}
@@ -169,7 +160,7 @@ function SearchFilters() {
         <img
           src={mainImg}
           alt="avatar"
-          className="w-[795px] absolute top-[220px]"
+          className="w-[795px] absolute top-[300px]"
         />
         {/*  Paw Logo*/}
         <Pawlogo className="w-[80px] absolute top-[70px] text-secondary " />

@@ -9,9 +9,8 @@ import AllFormUpdateUser from "./AllFormUpdateUser";
 import useUserInfoStore from "../../stores/user-store";
 import { actionUserInfo } from "../../api/user";
 import { actionVetsMember } from "../../api/vets";
-import { actionMember } from "../../api/auth";
 
-function FormInputProfile() {
+function FormInputVets() {
   const {userInfo, setUserInfo} = useUserInfoStore();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -23,7 +22,8 @@ function FormInputProfile() {
 
   const fetchData = async () => {
     try {
-      const userData = await actionMember(token);
+      const userData = await actionVetsMember(token);
+
       console.log(userData.data.result);
       setUserInfo(userData.data.result);
     } catch (error) {
@@ -77,4 +77,4 @@ function FormInputProfile() {
   );
 }
 
-export default FormInputProfile;
+export default FormInputVets;

@@ -36,7 +36,6 @@ function AppointmentForm() {
     }
   };
 
-  console.log(Vetsappointment);
   return (
     <div>
       <div className="flex flex-col justify-center mb-10">
@@ -78,13 +77,13 @@ function AppointmentForm() {
                 <div className="flex justify-center  place-items-center gap-2 ">
                   <PetHomeLogo className="text-accent w-[40px] h-[40px] " />
                   {/* AppointMent Date */}
-                  <div key={el?.pet.name} className="text-accent ">
+                  <div key={el?.date} className="text-accent ">
                     {el?.date}
                   </div>
                 </div>
 
                 {/* AppointMent time */}
-                <div key={el?.pet.name} className="text-accent ">
+                <div key={el?.time} className="text-accent ">
                   {el?.time}
                 </div>
 

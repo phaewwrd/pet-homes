@@ -17,7 +17,7 @@ import VetsMakeappointment from "../pages/user-vets/VetsMakeappointment";
 import ProtectRoutes from "../layout/ProtectRoutes";
 import GuestRoutes from "../layout/ProtectRouteGuest";
 import ProtectVetsRoutes from "../layout/ProtectVetsRoutes";
-import VetsMembership from "../pages/auth/vetsMembership";
+import VetsMembership from "../pages/auth/VetsMembership";
 import VetsRegister from "../pages/auth/VetsRegister";
 import VetsDashboard from "../pages/user-vets/VetsDashboard";
 

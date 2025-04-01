@@ -5,13 +5,13 @@ import PetsHomeLogo from "../Logo/PetsHomeLogo";
 import { use } from "react";
 import axios from "axios";
 import useAuthStore from "../../stores/auth-store";
-import AllFormUpdateUser from "./AllFormUpdateUser";
 import useUserInfoStore from "../../stores/user-store";
 import { actionUserInfo } from "../../api/user";
 import { actionVetsMember } from "../../api/vets";
-import { actionMember } from "../../api/auth";
+import AllFormUpdateUser from "../user/AllFormUpdateUser";
+import AllFormUpdateVets from "./AllFormUpdateVets";
 
-function FormInputProfile() {
+function VetsInfo() {
   const {userInfo, setUserInfo} = useUserInfoStore();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -23,7 +23,8 @@ function FormInputProfile() {
 
   const fetchData = async () => {
     try {
-      const userData = await actionMember(token);
+      const userData = await actionVetsMember(token);
+
       console.log(userData.data.result);
       setUserInfo(userData.data.result);
     } catch (error) {
@@ -50,10 +51,10 @@ function FormInputProfile() {
         <div className="border-2 border-slate-100 rounded-lg p-5 w-full bg-base-100 ">
         <div className="grid grid-cols-5 gap-10 p-5 place-items-center  border-b-2 border-slate-100 ">
             <div className="w-[150px]">
-              <div>First Name</div>
+              <div>Doctor Name</div>
             </div>
             <div className="w-[150px]">
-              <div>Last Name</div>
+              <div>Hospital</div>
             </div>
             <div className="w-[150px]">
               <div>email</div>
@@ -67,7 +68,7 @@ function FormInputProfile() {
             </div>
           </div>
       
-            <AllFormUpdateUser userInfo={userInfo} isOpen={isOpen} checkUserId={checkUserId} setIsOpen={setIsOpen} fetchData={fetchData}/>
+            <AllFormUpdateVets userInfo={userInfo} isOpen={isOpen} checkUserId={checkUserId} setIsOpen={setIsOpen} fetchData={fetchData}/>
 
          
       </div>
@@ -77,4 +78,4 @@ function FormInputProfile() {
   );
 }
 
-export default FormInputProfile;
+export default VetsInfo;

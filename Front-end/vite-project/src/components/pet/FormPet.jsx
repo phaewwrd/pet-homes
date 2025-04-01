@@ -8,6 +8,7 @@ import AllFormUpdatepet from "./AllFormUpdatepet";
 
 function FormPet() {
   const pet = usePetStore((state)=> state.pet);
+  const fetchPetData = usePetStore((state)=> state.fetchPetData);
   const [isOpen, setIsOpen] = useState(null);
 
 
@@ -15,6 +16,10 @@ function FormPet() {
   const checkPetId = (index) => {
     setIsOpen((prev) => (prev === index ? null : index));
   };
+
+  useEffect(() => {
+    fetchPetData();
+  }, []);
 
   console.log(pet);
 
@@ -59,7 +64,7 @@ function FormPet() {
             </div>
           </div>
           {/* pet info. */}
-          {pet.map((el, index) => (
+          {pet?.map((el, index) => (
            <AllFormUpdatepet pet={el} isOpen={isOpen} setIsOpen={setIsOpen} checkPetId={checkPetId} index={index} />
           ))}
         </div>

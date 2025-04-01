@@ -10,13 +10,6 @@ import usePetStore from "../../stores/pet-store";
 
 function MyProfile() {
 
-  const pet = usePetStore((state) => state.pet);
-  const fetchPetData = usePetStore((state) => state.fetchPetData);
-
-  useEffect(() => {
-    fetchPetData();
-  }, []);
-
 
   
   return (

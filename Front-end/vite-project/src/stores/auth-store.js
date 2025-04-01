@@ -28,6 +28,7 @@ const authStore = (set) => ({
   actionVetsLoginWithZustand: async (value) => {
     try {
       const res = await actionVetsMembership(value);
+      console.log(res);
       const { payload, token } = res.data;
       set({ user: payload, token: token });
       return { success: true, role: payload.role };

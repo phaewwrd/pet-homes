@@ -50,8 +50,10 @@ console.log(location);
 
   // fetch all vets data from api
   useEffect(() => {
+    fetchData()
     setType(location);
     setProvince(location);
+   
   }, []);
 
   const defaultPosition = [13.7384, 100.5321];
