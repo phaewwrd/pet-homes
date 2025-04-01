@@ -4,9 +4,12 @@
 const { type } = require("@prisma/client");
 const prisma = require("../configs/prisma");
 const createError = require("../utils/createError");
+const cloudinary = require("../configs/cloudinary");
+const fs = require("fs");
 
 exports.add = async (req, res, next) => {
   try {
+   
     const {
       name,
       chronicDisease,
@@ -63,6 +66,47 @@ console.log(userId.id, "sssssssssssssssss");
     next(error);
   }
 };
+
+exports.upload = async (req, res, next) => {
+  try {
+
+    const {id, petimage} = req.body
+
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    const img = await cloudinary.uploader.upload(req.file.path, {
+      public_id: `${Date.now()}`,
+      resource_type: "auto",
+      folder: "Pet-Home",
+    });
+    fs.unlinkSync(req.file.path);
+
+    const findPet = await prisma.pet.findFirst({
+      where:{
+        id
+      }
+    })
+    if(!findBooked){
+      return res.status(404).json({error: "Pet not found"})
+    }
+    const updatePet = await prisma.pet.update({
+      where:{
+        id
+      },
+      data:{
+        image: img.secure_url
+      }
+    })
+    
+    res.json({message: "Image uploaded successfully", img});
+
+  } catch (error) {
+    next(error);
+  }
+
+}
 
 exports.get = async( req, res, next) =>{
     try {

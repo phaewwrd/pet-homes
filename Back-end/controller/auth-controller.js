@@ -75,10 +75,8 @@ exports.getMe = async( req, res, next) =>{
             where:{
                 id,
             },
-            select:{
-                id: true,
-                email: true,
-                role: true
+            omit:{
+                password: true,
             }
         })
 
@@ -94,10 +92,8 @@ exports.getVets = async( req, res, next) =>{
             where:{
                 id,
             },
-            select:{
-                id: true,
-                email: true,
-                role: true
+            omit:{
+                password: true,
             }
         })
 
